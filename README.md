@@ -2,9 +2,13 @@
 Projeto para aprendizado utilizando Angular e Spring :D
 
 *(Primeira vez que o Angular rodar após a clonagem:
+
 npm install
+
 ng update
+
 npm update
+
 )
 
 Banco:
