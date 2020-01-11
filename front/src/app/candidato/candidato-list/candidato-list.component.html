@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Lista de candidatos</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>nome</th>
+          <th>cidade</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidato of candidatos | async">
+          <td>{{candidato.nome}}</td>
+          <td>{{candidato.cidade}}</td>
+          <td><button (click)="deleteCandidato(candidato.id)" class="btn btn-danger">Deletar</button>
+            <button (click)="updateCandidato(candidato.id)" class="btn btn-info"
+              style="margin-left: 10px">Editar</button>
+            <button (click)="candidatoDetails(candidato.id)" class="btn btn-info"
+              style="margin-left: 10px">Detalhes</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

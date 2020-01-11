@@ -1,0 +1,15 @@
+<h2>Candidato</h2> 
+
+<hr/>
+<div *ngIf="candidato">
+  <div>
+    <label><b>Nome: </b></label> {{candidato.nome}}
+  </div>
+  <div>
+    <label><b>Cidade: </b></label> {{candidato.cidade}}
+  </div>  
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">voltar</button><br>

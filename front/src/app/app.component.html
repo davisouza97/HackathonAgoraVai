@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Candidatos
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a routerLink="candidatos/lista" class="dropdown-item" routerLinkActive="active">Lista de Candidatos</a>
+        <a routerLink="candidatos/add" class="dropdown-item" routerLinkActive="active">Cadastrar Candidato</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Exames
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a routerLink="exames" class="dropdown-item" routerLinkActive="active">Lista de Candidatos</a>
+        <a routerLink="addExame" class="dropdown-item" routerLinkActive="active">Cadastrar Candidato</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a routerLink="addInscricao" class="nav-link" routerLinkActive="active">Fazer Inscricao</a>
+    </li>
+  </ul>
+</nav>
+<div class="container">
+  <br>
+  <h2 style="text-align: center;">Controle de Vestibular</h2>
+  <hr>
+  <div class="card">
+    <div class="card-body">
+      <router-outlet></router-outlet>
+      <app-toasts></app-toasts>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+</footer>
