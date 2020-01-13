@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Candidato } from "../candidato";
 import { CandidatoService } from "../candidato.service";
 import { ToastService } from '../../_services/toast.service';
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 @Component({
   selector: 'app-candidato-list',
@@ -39,10 +40,10 @@ export class CandidatoListComponent implements OnInit {
   }
 
   candidatoDetails(id: number) {
-    this.router.navigate(['candidatoDetails', id]);
+    this.router.navigate([listaRotas.candidatoDetalhes, id]);
   }
 
   updateCandidato(id: number) {
-    this.router.navigate(['updateCandidato', id]);
+    this.router.navigate([listaRotas.candidatoEditar, id]);
   }
 }

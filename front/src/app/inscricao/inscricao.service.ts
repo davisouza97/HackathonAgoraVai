@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InscricaoKey } from './InscricaoKey';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InscricaoService {
 
-  private baseUrl = 'http://localhost:8080/inscricoes';
+  private baseUrl = `${environment.baseUrl}inscricoes`;
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +18,6 @@ export class InscricaoService {
   }
 
   createInscricao(inscricao: Object): Observable<Object> {
-    debugger;
     return this.http.post(`${this.baseUrl}`, inscricao);
   }
 

@@ -39,8 +39,12 @@ public class InscricaoController {
 	}
 
 	@PostMapping
-	public InscricaoDTO salvar(@RequestBody InscricaoDTO inscricaoDTO) {
-		return inscricaoService.salvar(inscricaoDTO);
+	public ResponseEntity<Object> salvar(@RequestBody InscricaoDTO inscricaoDTO) {
+		try {
+			return ResponseEntity.ok(inscricaoService.salvar(inscricaoDTO));
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@DeleteMapping("/{idCandidato}/{idExame}")

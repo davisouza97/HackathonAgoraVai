@@ -3,6 +3,7 @@ import { Exame } from '../exame';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExameService } from '../exame.service';
 import { ToastService } from '../../_services/toast.service';
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 @Component({
   selector: 'app-update-exame',
@@ -15,7 +16,7 @@ export class UpdateExameComponent implements OnInit {
   exame: Exame;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private exameService: ExameService ,  public toastService: ToastService) { }
+    private exameService: ExameService, public toastService: ToastService) { }
 
   ngOnInit() {
     this.exame = new Exame();
@@ -30,25 +31,39 @@ export class UpdateExameComponent implements OnInit {
   }
 
   updateExame() {
-    this.exameService.updateExame(this.id, this.exame)
-      .subscribe(data => {
-        console.log(data);
-        this.toastService.show(
-          'Exame alterado com sucesso', {
-          classname: 'bg-success text-light',
-          delay: 2000,
-          autohide: true
+    let errosLog: string[] = this.validarCampos();
+    if (errosLog.length === 0) {
+      this.exameService.updateExame(this.id, this.exame)
+        .subscribe(data => {
+          console.log(data);
+          this.toastService.sucesso('Exame alterado com sucesso');
+          this.gotoList();
+        }, error => {
+          console.log(error);
+            this.toastService.erro(error.error);
         });
-        this.gotoList();
-      }, error => {
-        console.log(error);
-        this.toastService.show(
-          error.error, {
-          classname: 'bg-danger text-light',
-          delay: 2000,
-          autohide: true
-        });
-      });
+    } else {
+      this.mensagemErro(...errosLog);
+    }
+  }
+
+  validarCampos() {
+    let errosLog: string[] = [];
+    if (this.exame.nome == null || this.exame.nome == "") {
+      errosLog.push("campo nome não pode estar vazio");
+    }
+    console.log(this.exame.quantidadeVagas)
+    if (this.exame.quantidadeVagas == null) {
+      errosLog.push("campo Quantidade de vagas não pode estar vazio");
+    }
+    if (this.exame.quantidadeVagas <= 0) {
+      errosLog.push("campo Quantidade de vagas não pode ser menor que 1");
+    }
+    return errosLog;
+  }
+
+  mensagemErro(...mensagem: string[]) {
+    mensagem.forEach(m => this.toastService.erro(m, 3000));
   }
 
   onSubmit() {
@@ -56,6 +71,6 @@ export class UpdateExameComponent implements OnInit {
   }
 
   gotoList() {
-    this.router.navigate(['/exames']);
+    this.router.navigate([listaRotas.exameList]);
   }
 }

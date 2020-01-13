@@ -37,6 +37,9 @@ public class InscricaoService {
 	}
 	
 	public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
+		if (inscricaoRepository.existsById(inscricaoDTO.pegarInscricaoKey())) {
+			throw new RuntimeException("Essa inscrição já existe");
+		}
 		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
 	}
 

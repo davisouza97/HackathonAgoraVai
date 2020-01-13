@@ -4,6 +4,7 @@ import { Exame } from "../exame";
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 @Component({
   selector: 'app-exame-list',
@@ -40,10 +41,10 @@ export class ExameListComponent implements OnInit {
   }
 
   exameDetails(id: number) {
-    this.router.navigate(['exameDetails', id]);
+    this.router.navigate([listaRotas.exameDetalhes, id]);
   }
 
   updateExame(id: number) {
-    this.router.navigate(['updateExame', id]);
+    this.router.navigate([listaRotas.exameEditar, id]);
   }
 }

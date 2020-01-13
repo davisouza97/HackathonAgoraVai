@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Candidato } from '../candidato';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidatoService } from '../candidato.service';
+import { listaRotas } from 'src/app/utils/listaRotas';
+import { ToastService } from 'src/app/_services/toast.service';
 
 @Component({
   selector: 'app-update-candidato',
@@ -14,7 +16,7 @@ export class UpdateCandidatoComponent implements OnInit {
   candidato: Candidato;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private candidatoService: CandidatoService) { }
+    private candidatoService: CandidatoService, public toastService: ToastService) { }
 
   ngOnInit() {
     this.candidato = new Candidato();
@@ -24,24 +26,46 @@ export class UpdateCandidatoComponent implements OnInit {
     this.candidatoService.getCandidato(this.id)
       .subscribe(data => {
         console.log(data)
-        this.candidato = { ... data.body };
+        this.candidato = { ...data.body };
       }, error => console.log(error));
   }
 
   updatecandidato() {
-    this.candidatoService.updateCandidato(this.id, this.candidato)
-      .subscribe(data => {
-        console.log(data);
-        this.gotoList();
-      }, error => console.log(error));
-    this.candidato = new Candidato();
+    let errosLog: string[] = this.validarCampos();
+    if (errosLog.length === 0) {
+      this.candidatoService.updateCandidato(this.id, this.candidato)
+        .subscribe(data => {
+          console.log(data);
+          this.toastService.sucesso('Candidato alterado com sucesso');
+          this.goToList();
+        }, error => console.log(error));
+      this.candidato = new Candidato();
+    } else {
+      this.mensagemErro(...errosLog);
+    }
+  }
+
+
+  validarCampos() {
+    let errosLog: string[] = [];
+    if (this.candidato.nome == null || this.candidato.nome == "") {
+      errosLog.push("campo nome não pode estar vazio");
+    }
+    if (this.candidato.cidade == null  || this.candidato.cidade == "") {
+      errosLog.push("campo cidade não pode estar vazio");
+    }
+    return errosLog;
+  }
+
+  mensagemErro(...mensagem: string[]) {
+    mensagem.forEach(m => this.toastService.erro(m));
   }
 
   onSubmit() {
     this.updatecandidato();
   }
 
-  gotoList() {
-    this.router.navigate(['/candidatos']);
+  goToList() {
+    this.router.navigate([listaRotas.candidatoLista]);
   }
 }

@@ -1,5 +1,5 @@
 <h3>Inscrever candidato em um Exame</h3>
-<div [hidden]="submitted" style="width: 400px;">
+<div style="width: 400px;">
         <div class="form-group">
             <label for="name">Nome do Candidato</label>
             <select [(ngModel)]=inscricao.idCandidato class="form-control">
@@ -15,9 +15,4 @@
             </select>
         </div>  
         <button type="submit" class="btn btn-success" (click)="onSubmit()">Enviar</button>
-</div>
-
-<div [hidden]="!submitted">
-    <h4>Cadastro efetuado!!</h4>
-    <button class="btn btn-success" (click)="novaInscricao()">Nova Inscricao</button>
 </div>

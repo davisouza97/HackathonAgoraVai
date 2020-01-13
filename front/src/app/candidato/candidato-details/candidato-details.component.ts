@@ -2,6 +2,7 @@ import { CandidatoService } from "../candidato.service";
 import { Candidato } from "../candidato";
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 @Component({
   selector: 'app-candidato-details',
@@ -29,6 +30,6 @@ export class CandidatoDetailsComponent implements OnInit {
   }
 
   list() {
-    this.router.navigate(['candidatos']);
+    this.router.navigate([listaRotas.candidatoLista]);
   }
 }

@@ -31,30 +31,33 @@ export class CreateInscricaoComponent implements OnInit {
     this.exames = this.exameService.getExamesList();
     this.candidatos = this.candidatoService.getCandidatosList();
   }
-/*
-precisa disso?????
-*/
-  newExame(): void {
-    this.submitted = false;
-    this.inscricao = new Inscricao();
-  }
-
   save() {
     console.log(this.inscricao);
-    if (this.inscricao.idExame == null || this.inscricao.idCandidato == null) {
-      this.inscricao = undefined;
+    let errosLog: string[] = [];
+    if (this.inscricao.idExame == null) {
+      errosLog.push("campo exame não pode estar vazio");
     }
-    this.inscricaoService.createInscricao(this.inscricao)
-      .subscribe(data => {
-        console.log(data);
-        this.toastService.sucesso('Inscricao cadastrada com sucesso')
-        this.novaInscricao();
-      }, error => {
-        console.log(error);
-        this.toastService.erro('Inscricao não cadastrada')
-        //this.novaInscricao();
-      });
-    this.inscricao = new Inscricao();
+    if (this.inscricao.idCandidato == null) {
+      errosLog.push("campo candidato não pode estar vazio");
+    }
+    if (errosLog.length === 0) {
+      this.inscricaoService.createInscricao(this.inscricao)
+        .subscribe(data => {
+          console.log(data);
+          this.toastService.sucesso('Inscricao cadastrada com sucesso')
+          this.novaInscricao();
+        }, error => {
+          console.log(error);
+          this.mensagemErro(error.error);
+        });
+      this.inscricao = new Inscricao();
+    } else {
+      this.mensagemErro(...errosLog);
+    }
+  }
+
+  mensagemErro(...mensagem: string[]) {
+    mensagem.forEach(m => this.toastService.erro(m));
   }
 
   onSubmit() {
@@ -62,7 +65,8 @@ precisa disso?????
     this.save();
   }
   novaInscricao() {
-    this.newExame();
+    this.submitted = false;
+    this.inscricao = new Inscricao();
   }
   gotoList() {
     this.router.navigate(['/addInscricao']);

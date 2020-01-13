@@ -100,5 +100,9 @@ public class InscricaoDTO {
 	public Inscricao converterParaEntidade() {
 		return new Inscricao(new InscricaoKey(this.idCandidato,this.idExame),this.nota);
 	}
+	
+	public InscricaoKey pegarInscricaoKey() {
+		return new InscricaoKey(this.idCandidato,this.idExame);
+	}
 
 }

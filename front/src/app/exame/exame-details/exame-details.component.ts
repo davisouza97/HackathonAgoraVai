@@ -7,6 +7,7 @@ import { InscricaoKey } from '../../inscricao/InscricaoKey';
 import { ToastService } from '../../_services/toast.service';
 import { Exame } from "../exame";
 import { ExameService } from "../exame.service";
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 
 @Component({
@@ -63,6 +64,6 @@ export class ExameDetailsComponent implements OnInit {
   }
 
   list() {
-    this.router.navigate(['exames']);
+    this.router.navigate([listaRotas.exameList]);
   }
 }

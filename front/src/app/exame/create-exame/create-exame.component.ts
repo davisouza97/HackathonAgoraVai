@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
 import { Exame } from '../exame';
 import { ExameService } from '../exame.service';
+import { listaRotas } from 'src/app/utils/listaRotas';
 
 @Component({
   selector: 'app-create-exame',
@@ -45,6 +46,6 @@ export class CreateExameComponent implements OnInit {
   }
 
   gotoList() {
-    this.router.navigate(['/exames']);
+    this.router.navigate([listaRotas.exameList]);
   }
 }
