@@ -25,42 +25,44 @@ export class ExameDetailsComponent implements OnInit {
   modal: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private exameService: ExameService, private inscricaoService: InscricaoService,public toastService: ToastService) { }
+    private exameService: ExameService, private inscricaoService: InscricaoService, 
+    public toastService: ToastService) { }
 
   ngOnInit() {
     this.exame = new Exame();
-
+    
     this.id = this.route.snapshot.params['id'];
 
     this.exameService.getExame(this.id)
       .subscribe(data => {
         console.log(data)
-        this.exame = { ... data.body };
+        this.exame = { ...data.body };
         this.reloadData();
       }, error => console.log(error));
-    
+
   }
 
   reloadData() {
-    debugger;
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
   removeInscricao(id: number) {
-    this.inscricaoService.deleteInscricao(id,this.exame.id).subscribe(() => this.reloadData());
+    this.inscricaoService.deleteInscricao(id, this.exame.id).subscribe(() => this.reloadData());
     this.toastService.padrao('Inscrição removida')
   }
 
-  adicionaNota(inscricao: Inscricao){
+  adicionaNota(inscricao: Inscricao) {
     console.log(inscricao);
-    this.inscricaoService.createInscricao(inscricao).subscribe();
+    this.inscricaoService.updateInscricao(inscricao).subscribe();
     this.toastService.sucesso('Nota alterada/cadastrada com sucesso')
     this.modal = false;
+    debugger;
   }
 
-  exibirModal(inscricao: Inscricao){
+  exibirModal(inscricao: Inscricao) {
     this.inscricao = inscricao;
     this.modal = !this.modal;
+    debugger
   }
 
   list() {

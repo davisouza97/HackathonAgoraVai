@@ -19,8 +19,6 @@ public class InscricaoService {
 	@Autowired
 	private ExameRepository exameRepository;
 
-	
-	
 	public InscricaoDTO buscar(InscricaoKey inscricaoKey) {
 		if (!inscricaoRepository.existsById(inscricaoKey)) {
 			throw new RuntimeException("Essa Inscrição não existe");
@@ -31,15 +29,19 @@ public class InscricaoService {
 	public Iterable<InscricaoDTO> buscarTodos() {
 		return inscricaoRepository.buscarTodos();
 	}
-	
+
 	public Iterable<InscricaoDTO> buscarTodosPorExame(Long exameId) {
 		return inscricaoRepository.buscarTodosPorExame(exameId);
 	}
-	
+
 	public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
 		if (inscricaoRepository.existsById(inscricaoDTO.pegarInscricaoKey())) {
 			throw new RuntimeException("Essa inscrição já existe");
 		}
+		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
+	}
+
+	public InscricaoDTO alterar(InscricaoDTO inscricaoDTO) {
 		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
 	}
 
