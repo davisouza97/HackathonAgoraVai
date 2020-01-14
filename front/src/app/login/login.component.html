@@ -1,0 +1,15 @@
+<div  class="d-flex justify-content-center">
+    <form>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" required name="email" [(ngModel)] = "inputEmail">
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" required name="senha" [(ngModel)] = "inputSenha">
+        </div>
+
+        <button type="button" class="btn btn-success" (click)="fazerLogin()" >Logar</button>
+    </form>
+</div>

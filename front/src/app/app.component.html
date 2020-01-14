@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav *ngIf="mostrarMenu" class="navbar navbar-expand-sm navbar-dark bg-dark">
   <ul class="navbar-nav">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -21,7 +21,8 @@
       </div>
     </li>
     <li class="nav-item">
-      <a routerLink="addInscricao" class="nav-link" routerLinkActive="active">Fazer Inscricao</a>
+      <a routerLink="addInscricao" class="nav-link" routerLinkActive="active">Fazer Inscricao
+      </a>
     </li>
   </ul>
 </nav>
@@ -38,4 +39,9 @@
 </div>
 
 <footer class="footer">
+  <div class="footer-copyright text-center py-3">
+    <!--  
+    <span>Projeto de aprendizado Angular :D</span>
+    -->
+  </div>
 </footer>

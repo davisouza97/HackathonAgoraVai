@@ -9,25 +9,15 @@ import { CandidatoRoutingModule } from './candidato-routing.module';
 
 @NgModule({
     declarations: [
-        //AppComponent,
         CreateCandidatoComponent,
         CandidatoDetailsComponent,
         CandidatoListComponent,
         UpdateCandidatoComponent,
     ],
-    imports: [/*
+    imports: [
         CommonModule,
-        CandidatoRoutingModule,
-        
         FormsModule,
-        NgbModule,
-        //FormsModule,
-        CommonModule,
-        //BrowserModule
-        */
-       CommonModule,
-       FormsModule,
-       CandidatoRoutingModule
+        CandidatoRoutingModule
     ],
     providers: []
 })

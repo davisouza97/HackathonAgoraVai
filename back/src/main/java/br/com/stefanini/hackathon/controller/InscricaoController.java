@@ -50,7 +50,11 @@ public class InscricaoController {
 
 	@PutMapping
 	public ResponseEntity<Object> alterar(@RequestBody InscricaoDTO inscricaoDTO) {
-		return ResponseEntity.ok(inscricaoService.alterar(inscricaoDTO));
+		try {
+			return ResponseEntity.ok(inscricaoService.alterar(inscricaoDTO));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@DeleteMapping("/{idCandidato}/{idExame}")

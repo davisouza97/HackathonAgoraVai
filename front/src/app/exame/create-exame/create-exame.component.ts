@@ -29,15 +29,39 @@ export class CreateExameComponent implements OnInit {
 
   save() {
     console.log(this.exame);
-    this.exameService.createExame(this.exame)
-      .subscribe(data => {
-        console.log(data);
-        this.toastService.sucesso('Exame cadastrado com sucesso');
-        this.gotoList();
-      }, error => {
-        console.log(error);
-        this.toastService.erro(error.error);
-      });
+    let errosLog: string[] = this.validarCampos();
+    if (errosLog.length === 0) {
+      this.exameService.createExame(this.exame)
+        .subscribe(data => {
+          console.log(data);
+          this.toastService.sucesso('Exame cadastrado com sucesso');
+          this.gotoList();
+        }, error => {
+          console.log(error);
+          this.toastService.erro(error.error);
+        });
+    }else{
+    this.mensagemErro(...errosLog);   
+    }
+  }
+
+  mensagemErro(...mensagem: string[]) {
+    mensagem.forEach(m => this.toastService.erro(m, 3000));
+  }
+
+  validarCampos() {
+    let errosLog: string[] = [];
+    if (this.exame.nome == null || this.exame.nome == "") {
+      errosLog.push("campo nome não pode estar vazio");
+    }
+    console.log(this.exame.quantidadeVagas)
+    if (this.exame.quantidadeVagas == null) {
+      errosLog.push("campo Quantidade de vagas não pode estar vazio");
+    }
+    if (this.exame.quantidadeVagas <= 0) {
+      errosLog.push("campo Quantidade de vagas não pode ser menor que 1");
+    }
+    return errosLog;
   }
 
   onSubmit() {

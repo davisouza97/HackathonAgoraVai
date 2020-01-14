@@ -42,6 +42,18 @@ public class InscricaoService {
 	}
 
 	public InscricaoDTO alterar(InscricaoDTO inscricaoDTO) {
+		if (inscricaoDTO == null) {
+			throw new RuntimeException("Inscrição não pode estar vazia");
+		}
+		if (inscricaoDTO.getNota() < 0) {
+			throw new RuntimeException("Campo nota não pode ser menor que 0");
+		}
+		if (inscricaoDTO.getNota() > 100) {
+			throw new RuntimeException("Campo nota não pode ser maior que 100");
+		}
+		if (inscricaoDTO.getNota() == null) {
+			throw new RuntimeException("Campo nota não pode estar vazia");
+		}
 		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
 	}
 

@@ -20,7 +20,7 @@ export class InscricaoService {
   createInscricao(inscricao: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, inscricao);
   }
-
+  
   updateInscricao(inscricao: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}`, inscricao);
   }
