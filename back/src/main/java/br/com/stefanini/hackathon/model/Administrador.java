@@ -62,7 +62,7 @@ public class Administrador implements Serializable {
 	}
 	
 	public AdministradorDTO converterParaDTO() {
-		return new AdministradorDTO(this.id, this.nome, this.email, this.senha);
+		return new AdministradorDTO(this.id, this.nome, this.email);
 		
 	}
 }

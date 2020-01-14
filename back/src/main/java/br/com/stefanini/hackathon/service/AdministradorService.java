@@ -16,9 +16,22 @@ public class AdministradorService {
 	public AdministradorDTO buscar(Long id) {
 		Administrador administrador = administradorRepository.findById(id).orElse(null);
 		if (administrador == null) {
-			throw new RuntimeException("Candidato não existe");
+			throw new RuntimeException("administrador não existe");
 		}
 		return administrador.converterParaDTO();
+	}
+	
+	public AdministradorDTO logar(AdministradorDTO administradorDTO) {
+		Administrador administrador = administradorRepository.findByEmail(administradorDTO.getEmail());
+		if (administrador == null) {
+			throw new RuntimeException("email não encontrado");
+		}
+		if (administrador.getSenha().equalsIgnoreCase(administradorDTO.getSenha())) {
+			return administrador.converterParaDTO();
+		}else {
+			throw new RuntimeException("Senha Incorreta");
+		}
+		
 	}
 
 	public Iterable<Administrador> buscarTodos() {
@@ -28,6 +41,9 @@ public class AdministradorService {
 	public AdministradorDTO salvar(AdministradorDTO administradorDTO) {
 		if (!validarCamposVazios(administradorDTO)) {
 			throw new RuntimeException("O Administrador não pode ter campos vazios");
+		}
+		if (administradorRepository.existsByEmail(administradorDTO.getEmail())) {
+			throw new RuntimeException("Esse Email já foi cadastrado");
 		}
 		return administradorRepository.save(administradorDTO.converterParaEntidade()).converterParaDTO();
 	}

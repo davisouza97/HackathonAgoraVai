@@ -1,15 +1,43 @@
-<div  class="d-flex justify-content-center">
-    <form>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" required name="email" [(ngModel)] = "inputEmail">
-        </div>
+<div *ngIf="!cadastro; then loginBlock else cadastroBlock"></div>
+<ng-template #loginBlock>
+    <div class="d-flex justify-content-center">
+        <form>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" required name="email" [(ngModel)]="admin.email" email>
+            </div>
 
-        <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" class="form-control" id="senha" required name="senha" [(ngModel)] = "inputSenha">
-        </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" required name="senha" [(ngModel)]="admin.senha" required>
+            </div>
 
-        <button type="button" class="btn btn-success" (click)="fazerLogin()" >Logar</button>
-    </form>
-</div>
+            <button type="button" class="btn btn-success" (click)="fazerLogin()">Logar</button>
+            <button type="button" class="btn btn-primary" (click)="cadastrar()">Cadastrar</button>
+        </form>
+    </div>
+</ng-template>
+<ng-template #cadastroBlock>
+
+    <div class="d-flex justify-content-center">
+        <form>
+            <div class="form-group">
+                <label for="emailC">Nome</label>
+                <input type="text" class="form-control" id="nomeC" required name="nomeC" [(ngModel)]="admin.nome" required>
+            </div>
+            <div class="form-group">
+                <label for="emailC">Email</label>
+                <input type="text" class="form-control" id="emailC" required name="emailC" [(ngModel)]="admin.email" email>
+            </div>
+
+            <div class="form-group">
+                <label for="senhaC">Senha</label>
+                <input type="password" class="form-control" id="senhaC" required name="senhaC"
+                    [(ngModel)]="admin.senha">
+            </div>
+
+            <button type="button" class="btn btn-success" (click)="fazerCadastroLogin()">Cadastrar e Logar</button>
+            <button type="button" class="btn btn-primary" (click)="cadastrar()">Logar</button>
+        </form>
+    </div>
+</ng-template>
