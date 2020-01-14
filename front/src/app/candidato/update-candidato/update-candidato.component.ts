@@ -22,7 +22,6 @@ export class UpdateCandidatoComponent implements OnInit {
     this.candidato = new Candidato();
 
     this.id = this.route.snapshot.params['id'];
-
     this.candidatoService.getCandidato(this.id)
       .subscribe(data => {
         console.log(data)

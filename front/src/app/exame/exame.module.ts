@@ -9,25 +9,15 @@ import { ExameRoutingModule } from './exame-routing.module';
 
 @NgModule({
     declarations: [
-        //AppComponent,
         CreateExameComponent,
         ExameDetailsComponent,
         ExameListComponent,
         UpdateExameComponent,
     ],
-    imports: [/*
+    imports: [
         CommonModule,
-        CandidatoRoutingModule,
-        
         FormsModule,
-        NgbModule,
-        //FormsModule,
-        CommonModule,
-        //BrowserModule
-        */
-       CommonModule,
-       FormsModule,
-       ExameRoutingModule
+        ExameRoutingModule
     ],
     providers: []
 })

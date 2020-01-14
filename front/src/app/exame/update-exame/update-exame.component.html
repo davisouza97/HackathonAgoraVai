@@ -1,6 +1,6 @@
 <h3>Editar Exame</h3>
 <div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+  <form>
     <div class="form-group">
       <label for="name">nome</label>
       <input type="text" class="form-control" id="nome" required [(ngModel)]="exame.nome" name="nome">
@@ -8,8 +8,50 @@
 
     <div class="form-group">
       <label for="name">Quantidade de Vagas</label>
-      <input type="text" class="form-control" id="quantidadeVagas" required [(ngModel)]="exame.quantidadeVagas" name="quantidadeVagas">
+      <input type="text" class="form-control" id="quantidadeVagas" required [(ngModel)]="exame.quantidadeVagas"
+        name="quantidadeVagas">
     </div>
-    <button type="submit" class="btn btn-success">Enviar</button>
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Nome Candidato</th>
+          <th>Nota Candidato</th>
+          <th>Ação</th>
+        </tr>
+        <tr *ngFor="let inscricao of inscricoes | async">
+          <td>{{inscricao.nomeCandidato}}</td>
+          <td>{{inscricao.nota}}</td>
+          <td><button class="btn btn-info" (click)="mostrarModal(inscricao)">Alterar/add nota</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" (click)="onSubmit()" class="btn btn-success">Enviar</button>
+
+
+    <div class="modal" *ngIf="modal">
+
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Adicionar/Alterar nota do Candidato: {{inscricao.nomeCandidato}}</h5>
+            <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="name">Nota:</label>
+            <input type="number" class="form-control" id="nota" required [(ngModel)]="inscricao.nota" min="0" max="100"
+              name="nota">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="adicionarNota(inscricao)">Salvar Mudanças</button>
+            <button type="button" class="btn btn-secondary" (click)="fecharModal()" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </form>
 </div>

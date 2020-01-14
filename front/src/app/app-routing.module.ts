@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -5,24 +7,24 @@ import { CreateInscricaoComponent } from './inscricao/create-inscricao/create-in
 
 
 
-const routes: Routes = [{ path: '', redirectTo: '', pathMatch: 'full' },
-/*
-{ path: 'candidatos', component: CandidatoListComponent },
-{ path: 'addCandidato', component: CreateCandidatoComponent },
-{ path: 'updateCandidato/:id', component: UpdateCandidatoComponent },
-{ path: 'candidatoDetails/:id', component: CandidatoDetailsComponent },
-*/
+const routes: Routes = [{
+  path: '', redirectTo: '', pathMatch: 'full',
+  canActivate: [AuthGuard]
+},
+{
+  path: 'candidatos', loadChildren: './candidato/candidato.module#CandidatoModule',
+  canActivate: [AuthGuard]
+},
+{
+  path: 'exames', loadChildren: './exame/exame.module#ExameModule',
+  canActivate: [AuthGuard]
+},
+{
+  path: 'addInscricao', component: CreateInscricaoComponent,
+  canActivate: [AuthGuard]
+},
+{ path: 'login', component: LoginComponent },
 
-{ path: 'candidatos', loadChildren: './candidato/candidato.module#CandidatoModule' },
-{ path: 'exames', loadChildren: './exame/exame.module#ExameModule' },
-/*
-{ path: 'addExame', component: CreateExameComponent },
-{ path: 'updateExame/:id', component: UpdateExameComponent },
-{ path: 'exameDetails/:id', component: ExameDetailsComponent },
-
-*/
-
-{ path: 'addInscricao', component: CreateInscricaoComponent },
 ];
 
 @NgModule({

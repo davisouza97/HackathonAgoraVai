@@ -19,8 +19,6 @@ public class InscricaoService {
 	@Autowired
 	private ExameRepository exameRepository;
 
-	
-	
 	public InscricaoDTO buscar(InscricaoKey inscricaoKey) {
 		if (!inscricaoRepository.existsById(inscricaoKey)) {
 			throw new RuntimeException("Essa Inscrição não existe");
@@ -31,14 +29,30 @@ public class InscricaoService {
 	public Iterable<InscricaoDTO> buscarTodos() {
 		return inscricaoRepository.buscarTodos();
 	}
-	
+
 	public Iterable<InscricaoDTO> buscarTodosPorExame(Long exameId) {
 		return inscricaoRepository.buscarTodosPorExame(exameId);
 	}
-	
+
 	public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {
 		if (inscricaoRepository.existsById(inscricaoDTO.pegarInscricaoKey())) {
 			throw new RuntimeException("Essa inscrição já existe");
+		}
+		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
+	}
+
+	public InscricaoDTO alterar(InscricaoDTO inscricaoDTO) {
+		if (inscricaoDTO == null) {
+			throw new RuntimeException("Inscrição não pode estar vazia");
+		}
+		if (inscricaoDTO.getNota() < 0) {
+			throw new RuntimeException("Campo nota não pode ser menor que 0");
+		}
+		if (inscricaoDTO.getNota() > 100) {
+			throw new RuntimeException("Campo nota não pode ser maior que 100");
+		}
+		if (inscricaoDTO.getNota() == null) {
+			throw new RuntimeException("Campo nota não pode estar vazia");
 		}
 		return inscricaoRepository.save(inscricaoDTO.converterParaEntidade()).converterParaDTO();
 	}

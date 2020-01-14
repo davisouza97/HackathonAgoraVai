@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth.guard';
+import { AuthService } from './login/auth.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -9,24 +11,14 @@ import { AppComponent } from './app.component';
 import { CreateInscricaoComponent } from './inscricao/create-inscricao/create-inscricao.component';
 import { InscricaoListComponent } from './inscricao/inscricao-list/inscricao-list.component';
 import { ToastComponent } from './toast/toast.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    /*
-    CreateCandidatoComponent,
-    CandidatoDetailsComponent,
-    CandidatoListComponent,
-    UpdateCandidatoComponent,
-    */
-   /*
-    CreateExameComponent,
-    ExameDetailsComponent,
-    ExameListComponent,
-    UpdateExameComponent,
-    */
     CreateInscricaoComponent,
     InscricaoListComponent,
-    ToastComponent
+    ToastComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +28,7 @@ import { ToastComponent } from './toast/toast.component';
     NgbModule,
     CommonModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
