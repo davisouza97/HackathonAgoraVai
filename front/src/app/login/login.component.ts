@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   fazerCadastroLogin() {
     this.administradorService.salvar(this.admin).subscribe(
       data => {
-        this.administradorService.logar(this.admin);
+        this.authService.fazerLogin(this.admin);
         this.toastService.sucesso("CADASTRADO E LOGADO COM SUCESSO", 3000);
       }, error => {
         this.toastService.erro(error.error);
@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit {
 
   cadastrar() {
     this.cadastro = !this.cadastro;
+  }
+
+  deslogar(){
+    this.authService.deslogar();
   }
 
 }

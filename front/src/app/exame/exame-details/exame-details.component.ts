@@ -39,17 +39,16 @@ export class ExameDetailsComponent implements OnInit {
 
   }
 
-  reloadData() {
-    debugger;
+  public reloadData() {
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
-  removeInscricao(id: number) {
+  public removeInscricao(id: number) {
     this.inscricaoService.deleteInscricao(id, this.exame.id).subscribe(() => this.reloadData());
     this.toastService.padrao('Inscrição removida')
   }
 
-  adicionaNota(inscricao: Inscricao) {
+  public adicionaNota(inscricao: Inscricao) {
     console.log(inscricao);
     let erroLog: string[] = this.verificarNota(inscricao);
     if (erroLog.length === 0) {
@@ -61,11 +60,11 @@ export class ExameDetailsComponent implements OnInit {
     }
   }
 
-  mensagemErro(...mensagem: string[]) {
+  private mensagemErro(...mensagem: string[]) {
     mensagem.forEach(m => this.toastService.erro(m));
   }
 
-  verificarNota(inscricao: Inscricao) {
+  private verificarNota(inscricao: Inscricao) {
     let erroLog: string[] = [];
     if (inscricao.nota > 100) {
       erroLog.push("Nota não pode ser maior que 100");
@@ -79,12 +78,12 @@ export class ExameDetailsComponent implements OnInit {
     return erroLog;
   }
 
-  exibirModal(inscricao: Inscricao) {
+  public exibirModal(inscricao: Inscricao) {
     this.inscricao = inscricao;
     this.modal = !this.modal;
   }
 
-  list() {
+  public list() {
     this.router.navigate([listaRotas.exameList]);
   }
 }

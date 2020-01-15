@@ -85,6 +85,7 @@ export class UpdateExameComponent implements OnInit {
 
   fecharModal() {
     this.modal = false;
+    this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
   validarCampos() {

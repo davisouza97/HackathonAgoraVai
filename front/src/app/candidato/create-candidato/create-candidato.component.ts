@@ -22,13 +22,12 @@ export class CreateCandidatoComponent implements OnInit {
   ngOnInit() {
   }
 
-  newCandidato(): void {
+  public newCandidato() {
     this.submitted = false;
     this.candidato = new Candidato();
   }
 
-  save() {
-
+  public save() {
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
     this.candidatoService.createCandidato(this.candidato)
@@ -48,7 +47,7 @@ export class CreateCandidatoComponent implements OnInit {
 
   }
 
-  validarCampos(){
+  public validarCampos(){
     let errosLog: string[] = [];
     if (this.candidato.nome == null) {
       errosLog.push("campo nome não pode estar vazio");
@@ -59,20 +58,20 @@ export class CreateCandidatoComponent implements OnInit {
     return errosLog;
   }
 
-  mensagemErro(...mensagem: string[]) {
+  private mensagemErro(...mensagem: string[]) {
     mensagem.forEach(m => this.toastService.erro(m));
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.submitted = true;
     this.save();
   }
 
-  refresh() {
+  public refresh() {
     this.router.navigate([listaRotas.candidatoAdd]);
   }
 
-  goToList() {
+  public goToList() {
     this.router.navigate([listaRotas.candidatoLista]);
   }
 }

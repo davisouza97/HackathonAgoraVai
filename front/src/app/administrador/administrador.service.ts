@@ -13,11 +13,11 @@ export class AdministradorService {
 
   constructor(private http: HttpClient) { }
 
-  logar(admin: Object): Observable<any> {
+  public logar(admin: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, admin, { observe: 'response' });
   }
 
-  salvar(admin: Object): Observable<Object> {
+  public salvar(admin: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, admin);
   }
 }

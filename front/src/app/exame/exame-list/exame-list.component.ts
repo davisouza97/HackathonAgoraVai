@@ -22,11 +22,11 @@ export class ExameListComponent implements OnInit {
     this.reloadData();
   }
 
-  reloadData() {
+  public reloadData() {
     this.exames = this.exameService.getExamesList();
   }
 
-  deleteExame(id: number) {
+  public deleteExame(id: number) {
     this.exameService.deleteExame(id)
       .subscribe(
         data => {
@@ -40,11 +40,11 @@ export class ExameListComponent implements OnInit {
         });
   }
 
-  exameDetails(id: number) {
+  public exameDetails(id: number) {
     this.router.navigate([listaRotas.exameDetalhes, id]);
   }
 
-  updateExame(id: number) {
+  public updateExame(id: number) {
     this.router.navigate([listaRotas.exameEditar, id]);
   }
 }

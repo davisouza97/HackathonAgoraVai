@@ -22,12 +22,12 @@ export class CreateExameComponent implements OnInit {
   ngOnInit() {
   }
 
-  newExame(): void {
+  public newExame(): void {
     this.submitted = false;
     this.exame = new Exame();
   }
 
-  save() {
+  public save() {
     console.log(this.exame);
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
@@ -40,16 +40,16 @@ export class CreateExameComponent implements OnInit {
           console.log(error);
           this.toastService.erro(error.error);
         });
-    }else{
-    this.mensagemErro(...errosLog);   
+    } else {
+      this.mensagemErro(...errosLog);
     }
   }
 
-  mensagemErro(...mensagem: string[]) {
+  private mensagemErro(...mensagem: string[]) {
     mensagem.forEach(m => this.toastService.erro(m, 3000));
   }
 
-  validarCampos() {
+  private validarCampos() {
     let errosLog: string[] = [];
     if (this.exame.nome == null || this.exame.nome == "") {
       errosLog.push("campo nome não pode estar vazio");
@@ -64,12 +64,12 @@ export class CreateExameComponent implements OnInit {
     return errosLog;
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.submitted = true;
     this.save();
   }
 
-  gotoList() {
+  public gotoList() {
     this.router.navigate([listaRotas.exameList]);
   }
 }

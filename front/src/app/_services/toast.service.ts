@@ -9,16 +9,16 @@ export class ToastService {
   toasts: any[] = [];
  
   // Push new Toasts to array with content and options
-  show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
+  public show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
     this.toasts.push({ textOrTpl, ...options });
   }
  
   // Callback method to remove Toast DOM element from view
-  remove(toast) {
+  public remove(toast) {
     this.toasts = this.toasts.filter(t => t !== toast);
   }
 
-  sucesso(mensagem: string , tempo: number = 2000){
+  public sucesso(mensagem: string , tempo: number = 2000){
     this.show(
       mensagem, {
       classname: 'bg-success text-light',
@@ -27,7 +27,7 @@ export class ToastService {
       });
   }
 
-  erro(mensagem: string , tempo: number = 2000){
+  public erro(mensagem: string , tempo: number = 2000){
     this.show(
       mensagem, {
       classname: 'bg-danger text-light',
@@ -36,7 +36,7 @@ export class ToastService {
       });
   }
 
-  padrao(mensagem: string, tempo: number = 2000) {
+  public padrao(mensagem: string, tempo: number = 2000) {
     this.show(
       mensagem, {
       delay: tempo,

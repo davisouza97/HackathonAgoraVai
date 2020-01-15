@@ -31,7 +31,6 @@ public class AdministradorService {
 		}else {
 			throw new RuntimeException("Senha Incorreta");
 		}
-		
 	}
 
 	public Iterable<Administrador> buscarTodos() {

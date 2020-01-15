@@ -21,7 +21,6 @@ export class CandidatoDetailsComponent implements OnInit {
     this.candidato = new Candidato();
 
     this.id = this.route.snapshot.params['id'];
-    console.log("!!!!!!!!!!!!!!"+this.id)
 
     this.candidatoService.getCandidato(this.id)
       .subscribe(data => {
@@ -30,7 +29,7 @@ export class CandidatoDetailsComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  list() {
+  public list() {
     this.router.navigate([listaRotas.candidatoLista]);
   }
 }

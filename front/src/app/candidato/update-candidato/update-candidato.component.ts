@@ -33,11 +33,11 @@ export class UpdateCandidatoComponent implements OnInit {
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.candidatoService.updateCandidato(this.id, this.candidato)
-        .subscribe(data => {
-          console.log(data);
+        .subscribe(resposta => {
+          console.log(resposta);
           this.toastService.sucesso('Candidato alterado com sucesso');
           this.goToList();
-        }, error => console.log(error));
+        }, resposta => console.log(resposta));
       this.candidato = new Candidato();
     } else {
       this.mensagemErro(...errosLog);

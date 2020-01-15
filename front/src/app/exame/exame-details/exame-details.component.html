@@ -10,23 +10,21 @@
     <h4>Candidato(s) cadastrado(s) no: {{exame.nome}}</h4>
 </div>
 <div class="panel-body">
-    <table class="table table-striped">
+    <table class="table">
         <thead>
             <tr>
-                <th>nome</th>
-                <th>cidade</th>
-                <th>nota</th>
-                <th>Ações</th>
+                <th>Posição</th>
+                <th>Nome</th>
+                <th>Cidade</th>
+                <th>Nota</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let inscricao of inscricoes | async">
+            <tr *ngFor="let inscricao of inscricoes| async  let i = index ">
+                <td>{{i+1}}</td>
                 <td>{{inscricao.nomeCandidato}}</td>
                 <td>{{inscricao.cidadeCandidato}}</td>
                 <td>{{inscricao.nota}}</td>
-                <td><button (click)="removeInscricao(inscricao.idCandidato)" class="btn btn-danger">Remover
-                        Candidato</button></td>
-                <td><button (click)="exibirModal(inscricao)" class="btn btn-primary">Adicionar/Alterar Nota</button></td>
             </tr>
         </tbody>
     </table>
@@ -46,11 +44,13 @@
             </div>
             <div class="modal-body">
                 <label for="name">Nota:</label>
-                <input type="number" class="form-control" id="nota" required [(ngModel)]="inscricao.nota" min="0" max="100" name="nota">
+                <input type="number" class="form-control" id="nota" required [(ngModel)]="inscricao.nota" min="0"
+                    max="100" name="nota">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="adicionaNota(inscricao)">Salvar Mudanças</button>
-                <button type="button" class="btn btn-secondary" (click)="exibirModal()" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" (click)="exibirModal()"
+                    data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>

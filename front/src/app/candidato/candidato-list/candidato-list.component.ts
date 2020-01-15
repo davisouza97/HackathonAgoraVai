@@ -21,11 +21,11 @@ export class CandidatoListComponent implements OnInit {
     this.reloadData();
   }
 
-  reloadData() {
+  public reloadData() {
     this.candidatos = this.candidatoService.getCandidatosList();
   }
 
-  deleteCandidato(id: number) {
+  public deleteCandidato(id: number) {
     this.candidatoService.deleteCandidato(id)
       .subscribe(
         data => {
@@ -39,11 +39,11 @@ export class CandidatoListComponent implements OnInit {
         });
   }
 
-  candidatoDetails(id: number) {
+  public candidatoDetails(id: number) {
     this.router.navigate([listaRotas.candidatoDetalhes, id]);
   }
 
-  updateCandidato(id: number) {
+  public updateCandidato(id: number) {
     this.router.navigate([listaRotas.candidatoEditar, id]);
   }
 }

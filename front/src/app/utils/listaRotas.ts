@@ -1,5 +1,3 @@
-import { Candidato } from '../candidato/candidato';
-
 export const listaRotas = {
     candidatoAdd : '/candidatos/add',
     candidatoLista : '/candidatos/lista',
@@ -10,5 +8,4 @@ export const listaRotas = {
     exameDetalhes : '/exames/detalhes',
     exameEditar : '/exames/update',
     inscricaoAdd : '/candidatos/add'
-    
 }

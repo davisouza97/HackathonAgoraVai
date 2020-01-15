@@ -31,6 +31,9 @@ public class InscricaoService {
 	}
 
 	public Iterable<InscricaoDTO> buscarTodosPorExame(Long exameId) {
+		//Exame exame = exameRepository.findById(exameId).get();
+		
+		
 		return inscricaoRepository.buscarTodosPorExame(exameId);
 	}
 

@@ -13,23 +13,23 @@ export class CandidatoService {
 
   constructor(private http: HttpClient) { }
 
-  getCandidato(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`,{ observe: 'response' });
+  public getCandidato(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`, { observe: 'response' });
   }
 
-  createCandidato(candidato: Object): Observable<Object> {
+  public createCandidato(candidato: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, candidato);
   }
 
-  updateCandidato(id: number, value: any): Observable<Object> {
+  public updateCandidato(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteCandidato(id: number): Observable<any> {
+  public deleteCandidato(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getCandidatosList(): Observable<any> {
+  public getCandidatosList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 }
