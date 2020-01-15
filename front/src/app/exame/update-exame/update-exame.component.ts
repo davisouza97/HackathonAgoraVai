@@ -35,29 +35,29 @@ export class UpdateExameComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  updateExame() {
+  public updateExame() {
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.exameService.updateExame(this.id, this.exame)
         .subscribe(data => {
           console.log(data);
           this.toastService.sucesso('Exame alterado com sucesso');
-          this.gotoList();
+          this.listar();
         }, error => {
           console.log(error);
           this.toastService.erro(error.error);
         });
     } else {
-      this.mensagemErro(...errosLog);
+      this.toastService.dispararToastsErro(...errosLog);
     }
   }
 
-  mostrarModal(inscricao: Inscricao) {
+  public mostrarModal(inscricao: Inscricao) {
     this.inscricao = inscricao;
     this.modal = !this.modal;
   }
 
-  adicionarNota(inscricao: Inscricao){
+  private adicionarNota(inscricao: Inscricao){
     console.log(inscricao);
     let erroLog: string[] = this.verificarNota(inscricao);
     if (erroLog.length === 0) {
@@ -65,11 +65,11 @@ export class UpdateExameComponent implements OnInit {
       this.toastService.sucesso('Nota alterada/cadastrada com sucesso')
       this.modal = false;
     } else {
-      this.mensagemErro(...erroLog);
+      this.toastService.dispararToastsErro(...erroLog);
     }
   }
 
-  verificarNota(inscricao: Inscricao) {
+  private verificarNota(inscricao: Inscricao) {
     let erroLog: string[] = [];
     if (inscricao.nota > 100) {
       erroLog.push("Nota não pode ser maior que 100");
@@ -83,12 +83,12 @@ export class UpdateExameComponent implements OnInit {
     return erroLog;
   }
 
-  fecharModal() {
+  public fecharModal() {
     this.modal = false;
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
-  validarCampos() {
+  private validarCampos() {
     let errosLog: string[] = [];
     if (this.exame.nome == null || this.exame.nome == "") {
       errosLog.push("campo nome não pode estar vazio");
@@ -103,15 +103,11 @@ export class UpdateExameComponent implements OnInit {
     return errosLog;
   }
 
-  mensagemErro(...mensagem: string[]) {
-    mensagem.forEach(m => this.toastService.erro(m, 3000));
-  }
-
-  onSubmit() {
+  public onSubmit() {
     this.updateExame();
   }
 
-  gotoList() {
+  public listar() {
     this.router.navigate([listaRotas.exameList]);
   }
 }

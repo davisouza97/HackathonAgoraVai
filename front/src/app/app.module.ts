@@ -12,6 +12,8 @@ import { CreateInscricaoComponent } from './inscricao/create-inscricao/create-in
 import { InscricaoListComponent } from './inscricao/inscricao-list/inscricao-list.component';
 import { ToastComponent } from './toast/toast.component';
 import { LoginComponent } from './login/login.component';
+import { StorageServiceModule} from 'angular-webstorage-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    CommonModule
+    CommonModule,
+    StorageServiceModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

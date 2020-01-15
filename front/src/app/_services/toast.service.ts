@@ -44,4 +44,8 @@ export class ToastService {
     });
   }
 
+  public dispararToastsErro(...mensagem: string[]) {
+    mensagem.forEach(m => this.erro(m));
+  }
+
 }

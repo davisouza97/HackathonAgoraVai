@@ -31,7 +31,7 @@
 </div>
 <br>
 <br>
-<button (click)="list()" class="btn btn-primary">Voltar</button><br>
+<button (click)="listar()" class="btn btn-primary">Voltar</button><br>
 
 <div id="modal" class="modal" tabindex="-1" role="dialog" *ngIf="modal">
     <div class="modal-dialog" role="document">
@@ -48,7 +48,7 @@
                     max="100" name="nota">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="adicionaNota(inscricao)">Salvar Mudanças</button>
+                <button type="button" class="btn btn-primary" (click)="adicionarNota(inscricao)">Salvar Mudanças</button>
                 <button type="button" class="btn btn-secondary" (click)="exibirModal()"
                     data-dismiss="modal">Fechar</button>
             </div>

@@ -18,20 +18,20 @@ export class CandidatoListComponent implements OnInit {
     private router: Router, public toastService: ToastService) { }
 
   ngOnInit() {
-    this.reloadData();
+    this.recarregar();
   }
 
-  public reloadData() {
+  public recarregar() {
     this.candidatos = this.candidatoService.getCandidatosList();
   }
 
-  public deleteCandidato(id: number) {
-    this.candidatoService.deleteCandidato(id)
+  public deletar(idCandidato: number) {
+    this.candidatoService.deleteCandidato(idCandidato)
       .subscribe(
         data => {
           console.log(data);
           this.toastService.padrao('Candidato removido');
-          this.reloadData();
+          this.recarregar();
         },
         error => {
           console.log(error);
@@ -39,11 +39,11 @@ export class CandidatoListComponent implements OnInit {
         });
   }
 
-  public candidatoDetails(id: number) {
-    this.router.navigate([listaRotas.candidatoDetalhes, id]);
+  public detalhes(idCandidato: number) {
+    this.router.navigate([listaRotas.candidatoDetalhes, idCandidato]);
   }
 
-  public updateCandidato(id: number) {
-    this.router.navigate([listaRotas.candidatoEditar, id]);
+  public alterar(idCandidato: number) {
+    this.router.navigate([listaRotas.candidatoEditar, idCandidato]);
   }
 }

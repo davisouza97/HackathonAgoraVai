@@ -27,7 +27,7 @@ export class CreateExameComponent implements OnInit {
     this.exame = new Exame();
   }
 
-  public save() {
+  public salvar() {
     console.log(this.exame);
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
@@ -35,18 +35,14 @@ export class CreateExameComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
           this.toastService.sucesso('Exame cadastrado com sucesso');
-          this.gotoList();
+          this.listar();
         }, error => {
           console.log(error);
           this.toastService.erro(error.error);
         });
     } else {
-      this.mensagemErro(...errosLog);
+      this.toastService.dispararToastsErro(...errosLog);
     }
-  }
-
-  private mensagemErro(...mensagem: string[]) {
-    mensagem.forEach(m => this.toastService.erro(m, 3000));
   }
 
   private validarCampos() {
@@ -66,10 +62,10 @@ export class CreateExameComponent implements OnInit {
 
   public onSubmit() {
     this.submitted = true;
-    this.save();
+    this.salvar();
   }
 
-  public gotoList() {
+  public listar() {
     this.router.navigate([listaRotas.exameList]);
   }
 }

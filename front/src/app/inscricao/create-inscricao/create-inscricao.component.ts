@@ -31,8 +31,13 @@ export class CreateInscricaoComponent implements OnInit {
     this.exames = this.exameService.getExamesList();
     this.candidatos = this.candidatoService.getCandidatosList();
   }
-  save() {
-    console.log(this.inscricao);
+
+  onSubmit() {
+    this.submitted = true;
+    this.salvar();
+  }
+
+  salvar() {
     let errosLog: string[] = [];
     if (this.inscricao.idExame == null) {
       errosLog.push("campo exame não pode estar vazio");
@@ -48,27 +53,17 @@ export class CreateInscricaoComponent implements OnInit {
           this.novaInscricao();
         }, error => {
           console.log(error);
-          this.mensagemErro(error.error);
+          this.toastService.dispararToastsErro(error.error);
         });
       this.inscricao = new Inscricao();
     } else {
-      this.mensagemErro(...errosLog);
+      this.toastService.dispararToastsErro(...errosLog);
     }
   }
 
-  mensagemErro(...mensagem: string[]) {
-    mensagem.forEach(m => this.toastService.erro(m));
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    this.save();
-  }
   novaInscricao() {
     this.submitted = false;
     this.inscricao = new Inscricao();
   }
-  gotoList() {
-    this.router.navigate(['/addInscricao']);
-  }
+
 }

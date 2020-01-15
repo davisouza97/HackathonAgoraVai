@@ -29,7 +29,7 @@ export class CandidatoDetailsComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  public list() {
+  public listar() {
     this.router.navigate([listaRotas.candidatoLista]);
   }
 }

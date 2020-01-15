@@ -17,10 +17,10 @@
             <td>{{exame.nome}}</td>
             <td>{{exame.quantidadeVagas}}</td>
             <td>{{exame.quantidadeInscritos}}</td>
-            <td><button (click)="deleteExame(exame.id)" class="btn btn-danger">Deletar</button>
-              <button (click)="updateExame(exame.id)" class="btn btn-info"
+            <td><button (click)="deletar(exame.id)" class="btn btn-danger">Deletar</button>
+              <button (click)="alterarExame(exame.id)" class="btn btn-info"
                 style="margin-left: 10px">Editar</button>
-              <button (click)="exameDetails(exame.id)" class="btn btn-info"
+              <button (click)="detalharExame(exame.id)" class="btn btn-info"
                 style="margin-left: 10px">Detalhes</button>
             </td>
           </tr>

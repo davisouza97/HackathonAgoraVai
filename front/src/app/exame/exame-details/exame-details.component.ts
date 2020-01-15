@@ -43,18 +43,13 @@ export class ExameDetailsComponent implements OnInit {
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
-  public removeInscricao(id: number) {
-    this.inscricaoService.deleteInscricao(id, this.exame.id).subscribe(() => this.reloadData());
-    this.toastService.padrao('Inscrição removida')
-  }
-
-  public adicionaNota(inscricao: Inscricao) {
-    console.log(inscricao);
-    let erroLog: string[] = this.verificarNota(inscricao);
+  public adicionarNota(inscricao: Inscricao) {
+    let erroLog: string[] = this.validarNota(inscricao);
     if (erroLog.length === 0) {
-      this.inscricaoService.updateInscricao(inscricao).subscribe();
-      this.toastService.sucesso('Nota alterada/cadastrada com sucesso')
-      this.modal = false;
+      this.inscricaoService.updateInscricao(inscricao).subscribe(() => {
+        this.toastService.sucesso('Nota alterada/cadastrada com sucesso');
+        this.modal = false;
+      });
     } else {
       this.mensagemErro(...erroLog);
     }
@@ -64,7 +59,7 @@ export class ExameDetailsComponent implements OnInit {
     mensagem.forEach(m => this.toastService.erro(m));
   }
 
-  private verificarNota(inscricao: Inscricao) {
+  private validarNota(inscricao: Inscricao) {
     let erroLog: string[] = [];
     if (inscricao.nota > 100) {
       erroLog.push("Nota não pode ser maior que 100");
@@ -83,7 +78,7 @@ export class ExameDetailsComponent implements OnInit {
     this.modal = !this.modal;
   }
 
-  public list() {
+  public listar() {
     this.router.navigate([listaRotas.exameList]);
   }
 }

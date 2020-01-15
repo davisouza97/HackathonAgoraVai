@@ -24,11 +24,11 @@ export class InscricaoListComponent implements OnInit {
     this.inscricoes = this.inscricaoService.getInscricaoList();
   }
 
-  inscricaoDetails(id: number){
+  public inscricaoDetails(id: number){
     this.router.navigate(['candidatoDetails', id]);
   }
 
-  updateInscricao(id: number) {
+  public updateInscricao(id: number) {
     this.router.navigate(['', id]);
   }
 }

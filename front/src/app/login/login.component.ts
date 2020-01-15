@@ -12,7 +12,7 @@ import { ToastService } from '../_services/toast.service';
 export class LoginComponent implements OnInit {
 
   admin: Administrador = new Administrador();
-  cadastro = false;
+  telaCadastro = false;
 
 
   constructor(private authService: AuthService, private administradorService: AdministradorService,
@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  cadastrar() {
-    this.cadastro = !this.cadastro;
+  mudarTela() {
+    this.telaCadastro = !this.telaCadastro;
   }
 
   deslogar(){

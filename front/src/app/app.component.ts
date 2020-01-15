@@ -1,5 +1,6 @@
 import { AuthService } from './login/auth.service';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +10,33 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Vestibular';
 
-  mostrarMenu: boolean = false;
+  public data: any = []
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService,
+    @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
 
-  ngOnInit(){
-    this.authService.mostrarMenuEmitter.subscribe(
-      mostrar => this.mostrarMenu = mostrar
-    );
+  ngOnInit() {
+    this.authService.mostrarMenuEmitter.subscribe(() => {
+    });
   }
 
-  deslogar(){
+  mostrarMenu(): boolean {
+    return this.authService.usuarioIsAutenticado();
+  }
+
+  saveInLocal(key, val): void {
+    console.log('recieved= key:' + key + 'value:' + val);
+    this.storage.set(key, val);
+    this.data[key] = this.storage.get(key);
+  }
+
+  getFromLocal(key): void {
+    console.log('recieved= key:' + key);
+    this.data[key] = this.storage.get(key);
+    console.log(this.data);
+  }
+
+  deslogar() {
     this.authService.deslogar();
   }
 }

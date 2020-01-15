@@ -1,13 +1,17 @@
+import { Candidato } from './candidato';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { isNullOrUndefined } from 'util';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidatoService {
+
+  
 
   private baseUrl = `${environment.baseUrl}candidatos`;
 
@@ -17,12 +21,20 @@ export class CandidatoService {
     return this.http.get(`${this.baseUrl}/${id}`, { observe: 'response' });
   }
 
-  public createCandidato(candidato: Object): Observable<Object> {
+  public salvarCandidato(candidato: Candidato): Observable<Object> {
+    if (isNullOrUndefined(candidato.id)) {
+      return this.createCandidato(candidato);
+    } else {
+      return this.updateCandidato(candidato);
+    }
+  }
+
+  public createCandidato(candidato: Candidato): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, candidato);
   }
 
-  public updateCandidato(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  public updateCandidato(candidato: Candidato): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${candidato.id}`, candidato);
   }
 
   public deleteCandidato(id: number): Observable<any> {

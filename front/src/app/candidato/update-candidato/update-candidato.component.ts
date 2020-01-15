@@ -32,7 +32,8 @@ export class UpdateCandidatoComponent implements OnInit {
   updatecandidato() {
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
-      this.candidatoService.updateCandidato(this.id, this.candidato)
+      this.candidato.id = this.id;
+      this.candidatoService.updateCandidato(this.candidato)
         .subscribe(resposta => {
           console.log(resposta);
           this.toastService.sucesso('Candidato alterado com sucesso');
@@ -40,7 +41,7 @@ export class UpdateCandidatoComponent implements OnInit {
         }, resposta => console.log(resposta));
       this.candidato = new Candidato();
     } else {
-      this.mensagemErro(...errosLog);
+      this.toastService.dispararToastsErro(...errosLog);
     }
   }
 
@@ -54,10 +55,6 @@ export class UpdateCandidatoComponent implements OnInit {
       errosLog.push("campo cidade não pode estar vazio");
     }
     return errosLog;
-  }
-
-  mensagemErro(...mensagem: string[]) {
-    mensagem.forEach(m => this.toastService.erro(m));
   }
 
   onSubmit() {

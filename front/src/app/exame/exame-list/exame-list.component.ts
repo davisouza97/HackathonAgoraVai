@@ -26,8 +26,8 @@ export class ExameListComponent implements OnInit {
     this.exames = this.exameService.getExamesList();
   }
 
-  public deleteExame(id: number) {
-    this.exameService.deleteExame(id)
+  public deletar(idExame: number) {
+    this.exameService.deleteExame(idExame)
       .subscribe(
         data => {
           console.log(data);
@@ -40,11 +40,11 @@ export class ExameListComponent implements OnInit {
         });
   }
 
-  public exameDetails(id: number) {
+  public detalharExame(id: number) {
     this.router.navigate([listaRotas.exameDetalhes, id]);
   }
 
-  public updateExame(id: number) {
+  public alterarExame(id: number) {
     this.router.navigate([listaRotas.exameEditar, id]);
   }
 }

@@ -9,7 +9,8 @@ import { UpdateCandidatoComponent } from './update-candidato/update-candidato.co
 const routes: Routes = [
     { path: 'lista', component: CandidatoListComponent },
     { path: 'add', component: CreateCandidatoComponent },
-    { path: 'update/:id', component: UpdateCandidatoComponent },
+    { path: 'update/:id', component: CreateCandidatoComponent },
+    //{ path: 'update/:id', component: UpdateCandidatoComponent },
     { path: 'detalhes/:id', component: CandidatoDetailsComponent },];
 
 @NgModule({

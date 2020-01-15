@@ -15,10 +15,10 @@
         <tr *ngFor="let candidato of candidatos | async">
           <td>{{candidato.nome}}</td>
           <td>{{candidato.cidade}}</td>
-          <td><button (click)="deleteCandidato(candidato.id)" class="btn btn-danger">Deletar</button>
-            <button (click)="updateCandidato(candidato.id)" class="btn btn-info"
+          <td><button (click)="deletar(candidato.id)" class="btn btn-danger">Deletar</button>
+            <button (click)="alterar(candidato.id)" class="btn btn-info"
               style="margin-left: 10px">Editar</button>
-            <button (click)="candidatoDetails(candidato.id)" class="btn btn-info"
+            <button (click)="detalhes(candidato.id)" class="btn btn-info"
               style="margin-left: 10px">Detalhes</button>
           </td>
         </tr>
