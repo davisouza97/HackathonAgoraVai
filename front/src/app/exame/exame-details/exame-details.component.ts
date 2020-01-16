@@ -34,12 +34,12 @@ export class ExameDetailsComponent implements OnInit {
       .subscribe(data => {
         console.log(data)
         this.exame = { ...data.body };
-        this.reloadData();
+        this.carregarInscricoes();
       }, error => console.log(error));
 
   }
 
-  public reloadData() {
+  public carregarInscricoes() {
     this.inscricoes = this.exameService.getAprovadosExame(this.id);
   }
 
