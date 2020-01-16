@@ -7,12 +7,15 @@ public class InscricaoDTO {
 	private Long idCandidato;
 	private Long idExame;
 	private Double nota;
+	
 	private String nomeCandidato;
 	private String cidadeCandidato;
+	
 	private String nomeExame;
 	private Integer quantidadeVagas;
 	
-
+	private boolean aprovado = false;
+	
 	public InscricaoDTO() {
 
 	}
@@ -97,6 +100,16 @@ public class InscricaoDTO {
 		this.quantidadeVagas = quantidadeVagas;
 	}
 
+	public boolean isAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+
+	
 	public Inscricao converterParaEntidade() {
 		return new Inscricao(new InscricaoKey(this.idCandidato,this.idExame),this.nota);
 	}
@@ -105,4 +118,5 @@ public class InscricaoDTO {
 		return new InscricaoKey(this.idCandidato,this.idExame);
 	}
 
+	
 }

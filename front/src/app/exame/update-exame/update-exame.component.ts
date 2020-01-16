@@ -57,7 +57,7 @@ export class UpdateExameComponent implements OnInit {
     this.modal = !this.modal;
   }
 
-  private adicionarNota(inscricao: Inscricao){
+  public adicionarNota(inscricao: Inscricao){
     console.log(inscricao);
     let erroLog: string[] = this.verificarNota(inscricao);
     if (erroLog.length === 0) {

@@ -1,8 +1,8 @@
-import { CandidatoService } from "../candidato.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Candidato } from "../candidato";
-import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { listaRotas } from 'src/app/utils/listaRotas';
+import { CandidatoListComponent } from '../candidato-list/candidato-list.component';
+import { CandidatoService } from "../candidato.service";
 
 @Component({
   selector: 'app-candidato-details',
@@ -15,7 +15,8 @@ export class CandidatoDetailsComponent implements OnInit {
   candidato: Candidato;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private candidatoService: CandidatoService) { }
+    private candidatoService: CandidatoService,
+    private candidatoList: CandidatoListComponent) { }
 
   ngOnInit() {
     this.candidato = new Candidato();
@@ -24,12 +25,11 @@ export class CandidatoDetailsComponent implements OnInit {
 
     this.candidatoService.getCandidato(this.id)
       .subscribe(data => {
-        console.log(data)
         this.candidato = { ...data.body };
       }, error => console.log(error));
   }
 
   public listar() {
-    this.router.navigate([listaRotas.candidatoLista]);
+    this.candidatoList.fecharModal();
   }
 }

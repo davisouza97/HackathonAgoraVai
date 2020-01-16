@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.stefanini.hackathon.dto.InscricaoDTO;
+import br.com.stefanini.hackathon.model.Exame;
 import br.com.stefanini.hackathon.model.InscricaoKey;
 import br.com.stefanini.hackathon.repository.CandidatoRepository;
 import br.com.stefanini.hackathon.repository.ExameRepository;
@@ -31,10 +32,25 @@ public class InscricaoService {
 	}
 
 	public Iterable<InscricaoDTO> buscarTodosPorExame(Long exameId) {
-		//Exame exame = exameRepository.findById(exameId).get();
-		
-		
-		return inscricaoRepository.buscarTodosPorExame(exameId);
+		return inscricaoRepository.buscarTodosPorExameOrderByNota(exameId);
+	}
+
+	public Iterable<InscricaoDTO> buscarSituacaoPorExame(Long exameId) {
+		Exame exame = exameRepository.findById(exameId).orElse(null);
+		if (exame == null) {
+			throw new RuntimeException("Esse exame não existe");
+		}
+		Iterable<InscricaoDTO> inscricoes = inscricaoRepository.buscarTodosPorExameOrderByNota(exameId);
+		int indice = 0;
+		for (InscricaoDTO inscricaoDTO : inscricoes) {
+			if (indice < exame.getQuantidadeVagas() && inscricaoDTO.getNota() > 0) {
+				inscricaoDTO.setAprovado(true);
+			} else {
+				break;
+			}
+			indice++;
+		}
+		return inscricoes;
 	}
 
 	public InscricaoDTO salvar(InscricaoDTO inscricaoDTO) {

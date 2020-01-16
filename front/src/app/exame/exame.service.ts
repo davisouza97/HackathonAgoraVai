@@ -34,4 +34,8 @@ export class ExameService {
   public getInscricoesExame(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/inscricoes/${id}`);
   }
+
+  public getAprovadosExame(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/aprovados/${id}`);
+  }
 }

@@ -47,6 +47,11 @@ public class ExamesController {
 		return inscricaoService.buscarTodosPorExame(exameId);
 	}
 
+	@GetMapping("/aprovados/{exameId}")
+	public Iterable<InscricaoDTO> buscarSituacao(@PathVariable Long exameId) {
+		return inscricaoService.buscarSituacaoPorExame(exameId);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Object> salvar(@RequestBody ExameDTO exameoDTO) {
 		try {

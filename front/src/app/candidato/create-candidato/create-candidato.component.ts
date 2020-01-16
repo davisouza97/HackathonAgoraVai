@@ -1,3 +1,4 @@
+import { CandidatoListComponent } from './../candidato-list/candidato-list.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
@@ -20,11 +21,11 @@ export class CreateCandidatoComponent implements OnInit {
 
   constructor(private candidatoService: CandidatoService,
     private router: Router, public toastService: ToastService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private candidatoList: CandidatoListComponent) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
     this.isEditar = (this.id !== undefined);
     if (this.isEditar) {
       this.candidatoService.getCandidato(this.id).subscribe(data => {
@@ -39,18 +40,17 @@ export class CreateCandidatoComponent implements OnInit {
     this.candidato = new Candidato();
   }
 
-  public persistir(){
+  public persistir() {
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.candidatoService.salvarCandidato(this.candidato)
         .subscribe(data => {
-          console.log(data);
           this.toastService.sucesso(`Candidato ${this.isEditar ? 'alterado' : 'cadastrado'} com sucesso.`);
           this.adicionarNovoCandidato();
           this.candidato = new Candidato();
+          this.candidatoList.fecharModal();
         },
           error => {
-            console.log(error);
             this.toastService.erro(error.error);
           });
     } else {
@@ -80,6 +80,6 @@ export class CreateCandidatoComponent implements OnInit {
   }
 
   public listar() {
-    this.router.navigate([listaRotas.candidatoLista]);
+    this.candidatoList.fecharModal();
   }
 }

@@ -19,7 +19,7 @@ public interface InscricaoRepository extends CrudRepository<Inscricao, Inscricao
 
 	@Query("SELECT new br.com.stefanini.hackathon.dto.InscricaoDTO(c.id, e.id, i.nota, c.nome, c.cidade,"
 			+ "e.nome,e.quantidadeVagas) FROM Inscricao i join Candidato c on c.id = i.candidato.id join Exame e on e.id = i.exame.id where i.inscricaoKey.exameId  = ?1 ORDER BY i.nota DESC")
-	Iterable<InscricaoDTO> buscarTodosPorExame(Long ExameId);
+	Iterable<InscricaoDTO> buscarTodosPorExameOrderByNota(Long ExameId);
 	
 	List<Inscricao> findByInscricaoKeyCandidatoId(Long candidatoId);
 

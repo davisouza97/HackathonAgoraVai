@@ -13,25 +13,38 @@ import { listaRotas } from 'src/app/utils/listaRotas';
 })
 export class CandidatoListComponent implements OnInit {
   candidatos: Observable<Candidato[]>;
+  modal: boolean = false;
+  modalDeletar: boolean = false;
 
+  candidato: Candidato;
   constructor(private candidatoService: CandidatoService,
     private router: Router, public toastService: ToastService) { }
 
   ngOnInit() {
-    this.recarregar();
+    this.carregarCandidatos();
   }
 
-  public recarregar() {
+  public carregarCandidatos() {
     this.candidatos = this.candidatoService.getCandidatosList();
   }
 
-  public deletar(idCandidato: number) {
-    this.candidatoService.deleteCandidato(idCandidato)
+  abrirModal() {
+    this.modal = true;
+  }
+
+
+  abrirModalDeletar(candidato: Candidato) {
+    this.candidato = candidato;
+    this.modalDeletar = true;
+  }
+  public deletar(candidato: Candidato) {
+    this.candidatoService.deleteCandidato(candidato.id)
       .subscribe(
         data => {
           console.log(data);
           this.toastService.padrao('Candidato removido');
-          this.recarregar();
+          this.carregarCandidatos();
+          this.fecharModal();
         },
         error => {
           console.log(error);
@@ -39,11 +52,9 @@ export class CandidatoListComponent implements OnInit {
         });
   }
 
-  public detalhes(idCandidato: number) {
-    this.router.navigate([listaRotas.candidatoDetalhes, idCandidato]);
-  }
-
-  public alterar(idCandidato: number) {
-    this.router.navigate([listaRotas.candidatoEditar, idCandidato]);
+  fecharModal() {
+    this.carregarCandidatos();
+    this.modal = false;
+    this.modalDeletar = false;
   }
 }

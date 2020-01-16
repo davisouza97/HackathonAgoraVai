@@ -4,14 +4,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CandidatoDetailsComponent } from './candidato-details/candidato-details.component';
 import { CandidatoListComponent } from './candidato-list/candidato-list.component';
 import { CreateCandidatoComponent } from './create-candidato/create-candidato.component';
-import { UpdateCandidatoComponent } from './update-candidato/update-candidato.component';
 
 const routes: Routes = [
-    { path: 'lista', component: CandidatoListComponent },
-    { path: 'add', component: CreateCandidatoComponent },
-    { path: 'update/:id', component: CreateCandidatoComponent },
-    //{ path: 'update/:id', component: UpdateCandidatoComponent },
-    { path: 'detalhes/:id', component: CandidatoDetailsComponent },];
+    {
+        path: '', component: CandidatoListComponent, children: [
+            { path: 'add', component: CreateCandidatoComponent },
+            { path: 'update/:id', component: CreateCandidatoComponent },
+            { path: 'detalhes/:id', component: CandidatoDetailsComponent },
+        ]
+    },
+];
 
 @NgModule({
     imports: [

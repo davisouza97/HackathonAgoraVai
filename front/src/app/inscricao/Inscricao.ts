@@ -6,4 +6,5 @@ export class Inscricao {
     cidadeCandidato: string;
     nomeExame: string;
     quantidadeVagas: number;
+    aprovado: boolean;
 }

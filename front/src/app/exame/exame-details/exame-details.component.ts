@@ -40,7 +40,7 @@ export class ExameDetailsComponent implements OnInit {
   }
 
   public reloadData() {
-    this.inscricoes = this.exameService.getInscricoesExame(this.id);
+    this.inscricoes = this.exameService.getAprovadosExame(this.id);
   }
 
   public adicionarNota(inscricao: Inscricao) {

@@ -1,6 +1,8 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h2>Lista de candidatos</h2>
+    <button class="btn btn-info" (click)="abrirModal()" routerLink="add" routerLinkActive="active">Cadastrar
+      Candidato</button>
   </div>
   <div class="panel-body">
     <table class="table table-striped">
@@ -15,14 +17,51 @@
         <tr *ngFor="let candidato of candidatos | async">
           <td>{{candidato.nome}}</td>
           <td>{{candidato.cidade}}</td>
-          <td><button (click)="deletar(candidato.id)" class="btn btn-danger">Deletar</button>
-            <button (click)="alterar(candidato.id)" class="btn btn-info"
-              style="margin-left: 10px">Editar</button>
-            <button (click)="detalhes(candidato.id)" class="btn btn-info"
-              style="margin-left: 10px">Detalhes</button>
+          <td><button (click)="abrirModalDeletar(candidato)" class="btn btn-danger">Deletar</button>
+            <button (click)="abrirModal()" class="btn btn-info" routerLink="update/{{candidato.id}}"
+              routerLinkActive="active" style="margin-left: 10px">Editar</button>
+            <button (click)="abrirModal()" routerLink="detalhes/{{candidato.id}}"
+            routerLinkActive="active" class="btn btn-info" style="margin-left: 10px">Detalhes</button>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+
+
+
+<div class="modal" *ngIf="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Persistir Candidato</h5>
+        <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="modalDeletar">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tem certeza que deseja remover o Candidato: {{candidato.nome}}</h5>
+        <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-danger" (click)="deletar(candidato)">Deletar</button>
+        <button type="button" class="btn btn-info" (click)="fecharModal()" data-dismiss="modal" style="margin-left: 10px">Fechar</button>
+      </div>
+    </div>
   </div>
 </div>
