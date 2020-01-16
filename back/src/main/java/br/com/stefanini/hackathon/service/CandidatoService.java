@@ -52,6 +52,7 @@ public class CandidatoService {
 	}
 
 	private boolean validarCamposVazios(CandidatoDTO candidatoDTO) {
-		return !(candidatoDTO == null || candidatoDTO.getNome() == null || candidatoDTO.getCidade() == null);
+		return !(candidatoDTO == null || candidatoDTO.getNome() == null || candidatoDTO.getNome() == ""
+				|| candidatoDTO.getCidade() == null || candidatoDTO.getCidade() == "");
 	}
 }
