@@ -1,5 +1,5 @@
 <h3>Cadastrar Exame</h3>
-<div style="width: 400px;">
+<div>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="name">Nome</label>
@@ -10,7 +10,6 @@
             <label for="name">Quantidade de Vagas</label>
             <input type="number" class="form-control" id="quantidadeVagas" required [(ngModel)]="exame.quantidadeVagas" name="cidade" min="1">
         </div>
-
         <button type="submit" class="btn btn-success">Enviar</button>
     </form>
 </div>

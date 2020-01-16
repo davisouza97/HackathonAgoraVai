@@ -23,8 +23,8 @@ const routes: Routes = [{
   path: 'addInscricao', component: CreateInscricaoComponent,
   canActivate: [AuthGuard]
 },
-{ path: 'login', component: LoginComponent ,
-//canActivate: [AuthGuard]
+{
+  path: 'login', component: LoginComponent,
 },
 
 ];

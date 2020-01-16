@@ -1,3 +1,4 @@
+import { ExameListComponent } from './../exame-list/exame-list.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
@@ -17,7 +18,8 @@ export class CreateExameComponent implements OnInit {
   submitted = false;
 
   constructor(private exameService: ExameService,
-    private router: Router, public toastService: ToastService) { }
+    private router: Router, public toastService: ToastService,
+    private exameList: ExameListComponent) { }
 
   ngOnInit() {
   }
@@ -36,6 +38,7 @@ export class CreateExameComponent implements OnInit {
           console.log(data);
           this.toastService.sucesso('Exame cadastrado com sucesso');
           this.listar();
+          this.exameList.fecharModal();
         }, error => {
           console.log(error);
           this.toastService.erro(error.error);

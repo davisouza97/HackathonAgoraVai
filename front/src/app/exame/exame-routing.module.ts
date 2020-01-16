@@ -7,8 +7,11 @@ import { CreateExameComponent } from './create-exame/create-exame.component';
 import { ExameListComponent } from './exame-list/exame-list.component';
 
 const routes: Routes = [
-    { path: 'lista', component: ExameListComponent },
-    { path: 'add', component: CreateExameComponent },
+    {
+        path: 'lista', component: ExameListComponent, children: [
+            { path: 'add', component: CreateExameComponent },
+        ]
+    },
     { path: 'update/:id', component: UpdateExameComponent },
     { path: 'detalhes/:id', component: ExameDetailsComponent },];
 

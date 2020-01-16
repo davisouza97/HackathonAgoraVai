@@ -1,30 +1,66 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Lista de Exames</h2>
-    </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>nome</th>
-            <th>quantidade de vagas</th>
-            <th>quantidade de inscritos</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let exame of exames | async">
-            <td>{{exame.nome}}</td>
-            <td>{{exame.quantidadeVagas}}</td>
-            <td>{{exame.quantidadeInscritos}}</td>
-            <td><button (click)="deletar(exame.id)" class="btn btn-danger">Deletar</button>
-              <button (click)="alterarExame(exame.id)" class="btn btn-info"
-                style="margin-left: 10px">Editar</button>
-              <button (click)="detalharExame(exame.id)" class="btn btn-info"
-                style="margin-left: 10px">Detalhes</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="panel-heading">
+    <h2>Lista de Exames</h2>
+    <button class="btn btn-info" (click)="abrirModal()" routerLink="add" routerLinkActive="active">Cadastrar
+      Exame</button>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Quantidade de vagas</th>
+          <th>Quantidade de inscritos</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exame of exames | async">
+          <td>{{exame.nome}}</td>
+          <td>{{exame.quantidadeVagas}}</td>
+          <td>{{exame.quantidadeInscritos}}</td>
+          <td><button (click)="modalDelete(exame)" class="btn btn-danger">Deletar</button>
+            <button (click)="alterarExame(exame.id)" class="btn btn-info" style="margin-left: 10px">Editar</button>
+            <button (click)="detalharExame(exame.id)" class="btn btn-info" style="margin-left: 10px">Detalhes</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Persistir Candidato</h5>
+        <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
+</div>
+
+
+<div class="modal" *ngIf="modalDeletar">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tem certeza que deseja remover o Exame: {{exame.nome}}</h5>
+        <button type="button" class="close" (click)="fecharModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-danger" (click)="deletar(exame.id)">Deletar</button>
+        <button type="button" class="btn btn-info" (click)="fecharModal()" data-dismiss="modal"
+          style="margin-left: 10px">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
