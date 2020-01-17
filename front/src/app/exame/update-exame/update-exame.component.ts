@@ -1,12 +1,12 @@
-import { InscricaoService } from './../../inscricao/inscricao.service';
-import { Inscricao } from './../../inscricao/Inscricao';
 import { Component, OnInit } from '@angular/core';
-import { Exame } from '../exame';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExameService } from '../exame.service';
-import { ToastService } from '../../_services/toast.service';
-import { listaRotas } from 'src/app/utils/listaRotas';
 import { Observable } from 'rxjs';
+import { listaRotas } from 'src/app/utils/listaRotas';
+import { ToastService } from '../../_services/toast.service';
+import { Exame } from '../exame';
+import { ExameService } from '../exame.service';
+import { Inscricao } from './../../inscricao/Inscricao';
+import { InscricaoService } from './../../inscricao/inscricao.service';
 
 @Component({
   selector: 'app-update-exame',
@@ -20,6 +20,7 @@ export class UpdateExameComponent implements OnInit {
   inscricoes: Observable<Inscricao[]>;
   inscricao: Inscricao = new Inscricao();
   modal: boolean = false;
+  modalDeletar: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
     private exameService: ExameService, public toastService: ToastService,
@@ -31,11 +32,17 @@ export class UpdateExameComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.exame = { ...data.body };
-        this.inscricoes = this.exameService.getInscricoesExame(this.id);
+        this.carregarInscricao();
+        //this.inscricoes = this.exameService.getInscricoesExame(this.id);
       }, error => console.log(error));
   }
 
+  private carregarInscricao(){
+    this.inscricoes = this.exameService.getInscricoesExame(this.id);
+  }
+
   public updateExame() {
+    debugger
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.exameService.updateExame(this.id, this.exame)
@@ -57,16 +64,32 @@ export class UpdateExameComponent implements OnInit {
     this.modal = !this.modal;
   }
 
-  public adicionarNota(inscricao: Inscricao){
+  public mostrarModalDeletar(inscricao: Inscricao) {
+    this.inscricao = inscricao;
+    this.modalDeletar = !this.modalDeletar;
+  }
+
+  public adicionarNota(inscricao: Inscricao) {
     console.log(inscricao);
     let erroLog: string[] = this.verificarNota(inscricao);
     if (erroLog.length === 0) {
       this.inscricaoService.updateInscricao(inscricao).subscribe();
       this.toastService.sucesso('Nota alterada/cadastrada com sucesso')
-      this.modal = false;
+      this.fecharModal();
     } else {
       this.toastService.dispararToastsErro(...erroLog);
     }
+  }
+
+  delelar(inscricao: Inscricao) {
+    debugger;
+    this.inscricaoService.deleteInscricao(inscricao.idCandidato, inscricao.idExame).subscribe(data => {
+      this.toastService.sucesso("Inscricao Deletada");
+      this.carregarInscricao();
+      this.fecharModal();
+    }, erro => {
+      this.toastService.erro("Não foi possivel")
+    });
   }
 
   private verificarNota(inscricao: Inscricao) {
@@ -85,6 +108,7 @@ export class UpdateExameComponent implements OnInit {
 
   public fecharModal() {
     this.modal = false;
+    this.modalDeletar = false;
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 

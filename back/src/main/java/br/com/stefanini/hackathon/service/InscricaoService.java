@@ -77,6 +77,9 @@ public class InscricaoService {
 	}
 
 	public void deletar(InscricaoKey inscricaoKey) {
+		if(!inscricaoRepository.existsById(inscricaoKey)) {
+			throw new RuntimeException("Essa Inscrição não existe");
+		}
 		inscricaoRepository.deleteById(inscricaoKey);
 	}
 

@@ -41,9 +41,10 @@ export class CreateCandidatoComponent implements OnInit {
   }
 
   public persistir() {
+    debugger;
     let errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
-      this.candidatoService.salvarCandidato(this.candidato)
+      this.candidatoService.persistirCandidato(this.candidato)
         .subscribe(data => {
           this.toastService.sucesso(`Candidato ${this.isEditar ? 'alterado' : 'cadastrado'} com sucesso.`);
           this.adicionarNovoCandidato();
@@ -51,6 +52,7 @@ export class CreateCandidatoComponent implements OnInit {
           this.candidatoList.fecharModal();
         },
           error => {
+            debugger;
             this.toastService.erro(error.error);
           });
     } else {
@@ -61,10 +63,10 @@ export class CreateCandidatoComponent implements OnInit {
 
   public validarCampos() {
     let errosLog: string[] = [];
-    if (this.candidato.nome == null) {
+    if (this.candidato.nome == null || this.candidato.nome == "") {
       errosLog.push("campo nome não pode estar vazio");
     }
-    if (this.candidato.cidade == null) {
+    if (this.candidato.cidade == null || this.candidato.cidade == "") {
       errosLog.push("campo cidade não pode estar vazio");
     }
     return errosLog;

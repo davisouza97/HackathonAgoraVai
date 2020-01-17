@@ -21,7 +21,7 @@ export class CandidatoService {
     return this.http.get(`${this.baseUrl}/${id}`, { observe: 'response' });
   }
 
-  public salvarCandidato(candidato: Candidato): Observable<Object> {
+  public persistirCandidato(candidato: Candidato): Observable<Object> {
     if (isNullOrUndefined(candidato.id)) {
       return this.createCandidato(candidato);
     } else {

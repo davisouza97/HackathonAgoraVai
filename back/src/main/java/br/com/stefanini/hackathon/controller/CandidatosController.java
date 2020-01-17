@@ -58,9 +58,14 @@ public class CandidatosController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CandidatoDTO> alterar(@PathVariable Long id, @RequestBody CandidatoDTO candidatoDTO) {
+	public ResponseEntity<Object> alterar(@PathVariable Long id, @RequestBody CandidatoDTO candidatoDTO) {
 		candidatoDTO.setId(id);
-		return new ResponseEntity<CandidatoDTO>(candidatoService.salvar(candidatoDTO), HttpStatus.OK);
+		try {
+			return ResponseEntity.ok(candidatoService.salvar(candidatoDTO));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		
 	}
 
 	@DeleteMapping("/{id}")
