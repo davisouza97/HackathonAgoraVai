@@ -1,4 +1,4 @@
-import { CandidatoListComponent } from './../candidato-list/candidato-list.component';
+import { CandidatoListComponent } from '../candidato-list/candidato-list.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
@@ -7,25 +7,29 @@ import { CandidatoService } from '../candidato.service';
 import { listaRotas } from 'src/app/utils/listaRotas';
 
 
+const ID = 'id';
+
 @Component({
   selector: 'app-create-candidato',
-  templateUrl: './create-candidato.component.html',
-  styleUrls: ['./create-candidato.component.scss']
+  templateUrl: './candidato-persist.component.html',
+  styleUrls: ['./candidato-persist.component.scss']
 })
-export class CreateCandidatoComponent implements OnInit {
+export class CandidatoPersistComponent implements OnInit {
 
   id: number;
   isEditar: boolean;
   candidato: Candidato = new Candidato();
   submitted = false;
 
-  constructor(private candidatoService: CandidatoService,
-    private router: Router, public toastService: ToastService,
+  constructor(
+    private candidatoService: CandidatoService,
+    private router: Router,
+    public toastService: ToastService,
     private route: ActivatedRoute,
     private candidatoList: CandidatoListComponent) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params[ID];
     this.isEditar = (this.id !== undefined);
     if (this.isEditar) {
       this.candidatoService.getCandidato(this.id).subscribe(data => {
@@ -41,8 +45,7 @@ export class CreateCandidatoComponent implements OnInit {
   }
 
   public persistir() {
-    debugger;
-    let errosLog: string[] = this.validarCampos();
+    const errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.candidatoService.persistirCandidato(this.candidato)
         .subscribe(data => {
@@ -52,7 +55,6 @@ export class CreateCandidatoComponent implements OnInit {
           this.candidatoList.fecharModal();
         },
           error => {
-            debugger;
             this.toastService.erro(error.error);
           });
     } else {
@@ -62,12 +64,12 @@ export class CreateCandidatoComponent implements OnInit {
   }
 
   public validarCampos() {
-    let errosLog: string[] = [];
-    if (this.candidato.nome == null || this.candidato.nome == "") {
-      errosLog.push("campo nome não pode estar vazio");
+    const errosLog: string[] = [];
+    if (this.candidato.nome == null || this.candidato.nome === '') {
+      errosLog.push('campo nome não pode estar vazio');
     }
-    if (this.candidato.cidade == null || this.candidato.cidade == "") {
-      errosLog.push("campo cidade não pode estar vazio");
+    if (this.candidato.cidade == null || this.candidato.cidade === '') {
+      errosLog.push('campo cidade não pode estar vazio');
     }
     return errosLog;
   }

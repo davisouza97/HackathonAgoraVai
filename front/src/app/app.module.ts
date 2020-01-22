@@ -14,6 +14,7 @@ import { ToastComponent } from './toast/toast.component';
 import { LoginComponent } from './login/login.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { StorageServiceModule} from 'angular-webstorage-service';
     HttpClientModule,
     NgbModule,
     CommonModule,
-    StorageServiceModule
+    StorageServiceModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

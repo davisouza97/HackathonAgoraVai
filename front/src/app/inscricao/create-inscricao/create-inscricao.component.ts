@@ -23,9 +23,11 @@ export class CreateInscricaoComponent implements OnInit {
   candidatoId: number = null;
   exameId: number = null;
 
-  constructor(private inscricaoService: InscricaoService,
-    private router: Router, private candidatoService: CandidatoService,
-    private exameService: ExameService, public toastService: ToastService) { }
+  constructor(
+    private inscricaoService: InscricaoService,
+    private candidatoService: CandidatoService,
+    private exameService: ExameService,
+    public toastService: ToastService) { }
 
   ngOnInit() {
     this.exames = this.exameService.getExamesList();
@@ -38,18 +40,17 @@ export class CreateInscricaoComponent implements OnInit {
   }
 
   salvar() {
-    let errosLog: string[] = [];
+    const errosLog: string[] = [];
     if (this.inscricao.idExame == null) {
-      errosLog.push("campo exame não pode estar vazio");
+      errosLog.push('campo exame não pode estar vazio');
     }
     if (this.inscricao.idCandidato == null) {
-      errosLog.push("campo candidato não pode estar vazio");
+      errosLog.push('campo candidato não pode estar vazio');
     }
     if (errosLog.length === 0) {
       this.inscricaoService.createInscricao(this.inscricao)
         .subscribe(data => {
-          console.log(data);
-          this.toastService.sucesso('Inscricao cadastrada com sucesso')
+          this.toastService.sucesso('Inscricao cadastrada com sucesso');
           this.novaInscricao();
         }, error => {
           console.log(error);
@@ -65,5 +66,4 @@ export class CreateInscricaoComponent implements OnInit {
     this.submitted = false;
     this.inscricao = new Inscricao();
   }
-
 }

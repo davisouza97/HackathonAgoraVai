@@ -1,6 +1,6 @@
-import { Observable } from "rxjs";
-import { ExameService } from "../exame.service";
-import { Exame } from "../exame";
+import { Observable } from 'rxjs';
+import { ExameService } from '../exame.service';
+import { Exame } from '../exame';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from '../../_services/toast.service';
@@ -12,13 +12,14 @@ import { listaRotas } from 'src/app/utils/listaRotas';
   styleUrls: ['./exame-list.component.scss']
 })
 export class ExameListComponent implements OnInit {
-
   exames: Observable<Exame[]>;
   exame: Exame;
-  modal: boolean = false;
-  modalDeletar: boolean = false;
-  constructor(private exameService: ExameService,
-    private router: Router, public toastService: ToastService) { }
+  modal: boolean;
+  modalDeletar: boolean;
+  constructor(
+    private exameService: ExameService,
+    private router: Router,
+    public toastService: ToastService) { }
 
   ngOnInit() {
     this.carregarExames();
@@ -33,7 +34,6 @@ export class ExameListComponent implements OnInit {
   }
 
   public modalDelete(exame: Exame) {
-    debugger;
     this.modalDeletar = true;
     this.exame = exame;
   }
@@ -55,7 +55,7 @@ export class ExameListComponent implements OnInit {
         },
         error => {
           console.log(error);
-          this.toastService.erro(error.error)
+          this.toastService.erro(error.error);
         });
   }
 

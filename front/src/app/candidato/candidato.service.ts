@@ -10,9 +10,6 @@ import { isNullOrUndefined } from 'util';
   providedIn: 'root'
 })
 export class CandidatoService {
-
-  
-
   private baseUrl = `${environment.baseUrl}candidatos`;
 
   constructor(private http: HttpClient) { }
@@ -21,7 +18,7 @@ export class CandidatoService {
     return this.http.get(`${this.baseUrl}/${id}`, { observe: 'response' });
   }
 
-  public persistirCandidato(candidato: Candidato): Observable<Object> {
+  public persistirCandidato(candidato: Candidato): Observable<object> {
     if (isNullOrUndefined(candidato.id)) {
       return this.createCandidato(candidato);
     } else {
@@ -29,11 +26,11 @@ export class CandidatoService {
     }
   }
 
-  public createCandidato(candidato: Candidato): Observable<Object> {
+  public createCandidato(candidato: Candidato): Observable<object> {
     return this.http.post(`${this.baseUrl}`, candidato);
   }
 
-  public updateCandidato(candidato: Candidato): Observable<Object> {
+  public updateCandidato(candidato: Candidato): Observable<object> {
     return this.http.put(`${this.baseUrl}/${candidato.id}`, candidato);
   }
 

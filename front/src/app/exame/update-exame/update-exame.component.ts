@@ -8,6 +8,7 @@ import { ExameService } from '../exame.service';
 import { Inscricao } from './../../inscricao/Inscricao';
 import { InscricaoService } from './../../inscricao/inscricao.service';
 
+const ID = 'id';
 @Component({
   selector: 'app-update-exame',
   templateUrl: './update-exame.component.html',
@@ -19,31 +20,32 @@ export class UpdateExameComponent implements OnInit {
   exame: Exame;
   inscricoes: Observable<Inscricao[]>;
   inscricao: Inscricao = new Inscricao();
-  modal: boolean = false;
-  modalDeletar: boolean = false;
+  modal: boolean;
+  modalDeletar: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router,
-    private exameService: ExameService, public toastService: ToastService,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private exameService: ExameService,
+    public toastService: ToastService,
     private inscricaoService: InscricaoService) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params[ID];
     this.exameService.getExame(this.id)
       .subscribe(data => {
         console.log(data);
         this.exame = { ...data.body };
         this.carregarInscricao();
-        //this.inscricoes = this.exameService.getInscricoesExame(this.id);
       }, error => console.log(error));
   }
 
-  private carregarInscricao(){
+  private carregarInscricao() {
     this.inscricoes = this.exameService.getInscricoesExame(this.id);
   }
 
   public updateExame() {
-    debugger
-    let errosLog: string[] = this.validarCampos();
+    const errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.exameService.updateExame(this.id, this.exame)
         .subscribe(data => {
@@ -71,10 +73,10 @@ export class UpdateExameComponent implements OnInit {
 
   public adicionarNota(inscricao: Inscricao) {
     console.log(inscricao);
-    let erroLog: string[] = this.verificarNota(inscricao);
+    const erroLog: string[] = this.verificarNota(inscricao);
     if (erroLog.length === 0) {
       this.inscricaoService.updateInscricao(inscricao).subscribe();
-      this.toastService.sucesso('Nota alterada/cadastrada com sucesso')
+      this.toastService.sucesso('Nota alterada/cadastrada com sucesso');
       this.fecharModal();
     } else {
       this.toastService.dispararToastsErro(...erroLog);
@@ -82,26 +84,25 @@ export class UpdateExameComponent implements OnInit {
   }
 
   delelar(inscricao: Inscricao) {
-    debugger;
-    this.inscricaoService.deleteInscricao(inscricao.idCandidato, inscricao.idExame).subscribe(data => {
-      this.toastService.sucesso("Inscricao Deletada");
+    this.inscricaoService.deleteInscricao(inscricao.idCandidato, inscricao.idExame).subscribe(() => {
+      this.toastService.sucesso('Inscricao Deletada');
       this.carregarInscricao();
       this.fecharModal();
-    }, erro => {
-      this.toastService.erro("Não foi possivel")
+    }, () => {
+      this.toastService.erro('Não foi possivel');
     });
   }
 
   private verificarNota(inscricao: Inscricao) {
-    let erroLog: string[] = [];
+    const erroLog: string[] = [];
     if (inscricao.nota > 100) {
-      erroLog.push("Nota não pode ser maior que 100");
+      erroLog.push('Nota não pode ser maior que 100');
     }
     if (inscricao.nota < 0) {
-      erroLog.push("Nota não pode ser menor que 0");
+      erroLog.push('Nota não pode ser menor que 0');
     }
     if (inscricao.nota === null) {
-      erroLog.push("Campo nota não pode estar vazia");
+      erroLog.push('Campo nota não pode estar vazia');
     }
     return erroLog;
   }
@@ -113,16 +114,15 @@ export class UpdateExameComponent implements OnInit {
   }
 
   private validarCampos() {
-    let errosLog: string[] = [];
-    if (this.exame.nome == null || this.exame.nome == "") {
-      errosLog.push("campo nome não pode estar vazio");
+    const errosLog: string[] = [];
+    if (this.exame.nome == null || this.exame.nome === '') {
+      errosLog.push('campo nome não pode estar vazio');
     }
-    console.log(this.exame.quantidadeVagas)
     if (this.exame.quantidadeVagas == null) {
-      errosLog.push("campo Quantidade de vagas não pode estar vazio");
+      errosLog.push('campo Quantidade de vagas não pode estar vazio');
     }
     if (this.exame.quantidadeVagas <= 0) {
-      errosLog.push("campo Quantidade de vagas não pode ser menor que 1");
+      errosLog.push('campo Quantidade de vagas não pode ser menor que 1');
     }
     return errosLog;
   }

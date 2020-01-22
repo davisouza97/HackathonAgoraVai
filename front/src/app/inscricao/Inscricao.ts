@@ -1,6 +1,6 @@
 export class Inscricao {
-    idCandidato:number = null;
-    idExame:number= null;
+    idCandidato: number = null;
+    idExame: number = null;
     nota: number;
     nomeCandidato: string;
     cidadeCandidato: string;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToastComponent } from './toast.component';
+import { CandidatoPersistComponent } from './candidato-persist.component';
 
-describe('ToastComponent', () => {
-  let component: ToastComponent;
-  let fixture: ComponentFixture<ToastComponent>;
+describe('CreateCandidatoComponent', () => {
+  let component: CandidatoPersistComponent;
+  let fixture: ComponentFixture<CandidatoPersistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToastComponent ]
+      declarations: [ CandidatoPersistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToastComponent);
+    fixture = TestBed.createComponent(CandidatoPersistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

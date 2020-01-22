@@ -1,10 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
-import { Observable } from "rxjs";
-import { Candidato } from "../candidato";
-import { CandidatoService } from "../candidato.service";
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ToastService } from '../../_services/toast.service';
-import { listaRotas } from 'src/app/utils/listaRotas';
+import { Candidato } from '../candidato';
+import { CandidatoService } from '../candidato.service';
 
 @Component({
   selector: 'app-candidato-list',
@@ -13,12 +11,13 @@ import { listaRotas } from 'src/app/utils/listaRotas';
 })
 export class CandidatoListComponent implements OnInit {
   candidatos: Observable<Candidato[]>;
-  modal: boolean = false;
-  modalDeletar: boolean = false;
-
+  modal: boolean;
+  modalDeletar: boolean;
+  searchText: string ;
   candidato: Candidato;
-  constructor(private candidatoService: CandidatoService,
-    private router: Router, public toastService: ToastService) { }
+  constructor(
+    private candidatoService: CandidatoService,
+    public toastService: ToastService) { }
 
   ngOnInit() {
     this.carregarCandidatos();
@@ -48,7 +47,7 @@ export class CandidatoListComponent implements OnInit {
         },
         error => {
           console.log(error);
-          this.toastService.erro(error.error)
+          this.toastService.erro(error.error);
         });
   }
 

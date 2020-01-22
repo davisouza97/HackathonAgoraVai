@@ -13,7 +13,7 @@ const routes: Routes = [
         ]
     },
     { path: 'update/:id', component: UpdateExameComponent },
-    { path: 'detalhes/:id', component: ExameDetailsComponent },];
+    { path: 'detalhes/:id', component: ExameDetailsComponent }];
 
 @NgModule({
     imports: [

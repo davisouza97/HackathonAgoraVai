@@ -15,11 +15,11 @@ export class ExameService {
     return this.http.get(`${this.baseUrl}/${id}`, { observe: 'response' });
   }
 
-  public createExame(candidato: Object): Observable<Object> {
+  public createExame(candidato: object): Observable<object> {
     return this.http.post(`${this.baseUrl}`, candidato, { observe: 'response' });
   }
 
-  public updateExame(id: number, value: any): Observable<Object> {
+  public updateExame(id: number, value: any): Observable<object> {
     return this.http.put(`${this.baseUrl}/${id}`, value , { observe: 'response' });
   }
 

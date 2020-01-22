@@ -3,6 +3,7 @@
     <h2>Lista de candidatos</h2>
     <button class="btn btn-info" (click)="abrirModal()" routerLink="add" routerLinkActive="active">Cadastrar
       Candidato</button>
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" placeholder="Procure um candidato por id, nome ou cidade">
   </div>
   <div class="panel-body">
     <table class="table table-striped">
@@ -14,16 +15,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let candidato of candidatos | async">
-          <td>{{candidato.nome}}</td>
-          <td>{{candidato.cidade}}</td>
-          <td><button (click)="abrirModalDeletar(candidato)" class="btn btn-danger">Deletar</button>
-            <button (click)="abrirModal()" class="btn btn-info" routerLink="update/{{candidato.id}}"
-              routerLinkActive="active" style="margin-left: 10px">Editar</button>
-            <button (click)="abrirModal()" routerLink="detalhes/{{candidato.id}}"
-            routerLinkActive="active" class="btn btn-info" style="margin-left: 10px">Detalhes</button>
-          </td>
-        </tr>
+          <tr *ngFor="let candidato of candidatos | async | filter:searchText">
+            <td>{{candidato.nome}}</td>
+            <td>{{candidato.cidade}}</td>
+            <td><button (click)="abrirModalDeletar(candidato)" class="btn btn-danger">Deletar</button>
+              <button (click)="abrirModal()" class="btn btn-info" routerLink="update/{{candidato.id}}"
+                routerLinkActive="active" style="margin-left: 10px">Editar</button>
+              <button (click)="abrirModal()" routerLink="detalhes/{{candidato.id}}" routerLinkActive="active"
+                class="btn btn-info" style="margin-left: 10px">Detalhes</button>
+            </td>
+          </tr>
       </tbody>
     </table>
   </div>
@@ -60,7 +61,8 @@
       </div>
       <div class="modal-body">
         <button type="button" class="btn btn-danger" (click)="deletar(candidato)">Deletar</button>
-        <button type="button" class="btn btn-info" (click)="fecharModal()" data-dismiss="modal" style="margin-left: 10px">Voltar</button>
+        <button type="button" class="btn btn-info" (click)="fecharModal()" data-dismiss="modal"
+          style="margin-left: 10px">Voltar</button>
       </div>
     </div>
   </div>

@@ -10,27 +10,24 @@ import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 export class AppComponent {
   title = 'Vestibular';
 
-  public data: any = []
+  public data: any = [];
 
-  constructor(private authService: AuthService,
-    @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
-
-  ngOnInit() {
-    this.authService.mostrarMenuEmitter.subscribe(() => {
-    });
-  }
+  constructor(
+    private authService: AuthService,
+    @Inject(SESSION_STORAGE) private storage: WebStorageService
+  ) { }
 
   mostrarMenu(): boolean {
     return this.authService.usuarioIsAutenticado();
   }
 
-  saveInLocal(key, val): void {
+  saveInLocal(key: string, val: any): void {
     console.log('recieved= key:' + key + 'value:' + val);
     this.storage.set(key, val);
     this.data[key] = this.storage.get(key);
   }
 
-  getFromLocal(key): void {
+  getFromLocal(key: string): void {
     console.log('recieved= key:' + key);
     this.data[key] = this.storage.get(key);
     console.log(this.data);

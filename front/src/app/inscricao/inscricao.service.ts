@@ -17,11 +17,11 @@ export class InscricaoService {
     return this.http.post(`${this.baseUrl}/buscar`, inscricaoKey);
   }
 
-  createInscricao(inscricao: Object): Observable<Object> {
+  createInscricao(inscricao: object): Observable<object> {
     return this.http.post(`${this.baseUrl}`, inscricao);
   }
-  
-  updateInscricao(inscricao: Object): Observable<Object> {
+
+  updateInscricao(inscricao: object): Observable<object> {
     return this.http.put(`${this.baseUrl}`, inscricao);
   }
 

@@ -1,9 +1,9 @@
-import { Injectable, EventEmitter, Inject } from '@angular/core';
+import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdministradorService } from '../administrador/administrador.service';
-import { Administrador } from '../administrador/administrador';
-import { ToastService } from '../_services/toast.service';
 import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { Administrador } from '../administrador/administrador';
+import { AdministradorService } from '../administrador/administrador.service';
+import { ToastService } from '../_services/toast.service';
 
 
 @Injectable({
@@ -11,18 +11,20 @@ import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class AuthService {
 
-  private chaveAutenticacao: string = "isLogado";
+  private chaveAutenticacao = 'isLogado';
 
-  private usuarioAutenticado: boolean = false;
+  private usuarioAutenticado = false;
   mostrarMenuEmitter = new EventEmitter<boolean>();
 
-  constructor(private router: Router, private adminService: AdministradorService,
+  constructor(
+    private router: Router,
+    private adminService: AdministradorService,
     private toastService: ToastService,
     @Inject(SESSION_STORAGE) private storage: WebStorageService) { }
 
   fazerLogin(admin: Administrador) {
     this.adminService.logar(admin).subscribe(
-      data => {
+      () => {
         this.usuarioAutenticado = true;
         this.mostrarMenuEmitter.emit(true);
         this.router.navigate(['/']);

@@ -1,7 +1,7 @@
 // toast.component.ts
-import {Component, TemplateRef} from '@angular/core';
-import {ToastService} from '../_services/toast.service';
- 
+import { Component, TemplateRef } from '@angular/core';
+import { ToastService } from '../_services/toast.service';
+
 @Component({
   selector: 'app-toasts',
   template: `
@@ -16,14 +16,14 @@ import {ToastService} from '../_services/toast.service';
       <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
         <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
       </ng-template>
- 
       <ng-template #text>{{ toast.textOrTpl }}</ng-template>
     </ngb-toast>
   `,
-  host: {'[class.ngb-toasts]': 'true'}
+  // tslint:disable-next-line: no-host-metadata-property
+  host: { '[class.ngb-toasts]': 'true' }
 })
 export class ToastComponent {
-  constructor(public toastService: ToastService) {}
- 
-  isTemplate(toast) { return toast.textOrTpl instanceof TemplateRef; }
+  constructor(public toastService: ToastService) { }
+
+  isTemplate(toast: any) { return toast.textOrTpl instanceof TemplateRef; }
 }

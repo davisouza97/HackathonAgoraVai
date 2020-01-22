@@ -13,8 +13,9 @@ export class InscricaoListComponent implements OnInit {
 
   inscricoes: Observable<Inscricao[]>;
 
-  constructor(private inscricaoService: InscricaoService,
-    private router: Router) {}
+  constructor(
+    private inscricaoService: InscricaoService,
+    private router: Router) { }
 
   ngOnInit() {
     this.reloadData();
@@ -24,7 +25,7 @@ export class InscricaoListComponent implements OnInit {
     this.inscricoes = this.inscricaoService.getInscricaoList();
   }
 
-  public inscricaoDetails(id: number){
+  public inscricaoDetails(id: number) {
     this.router.navigate(['candidatoDetails', id]);
   }
 

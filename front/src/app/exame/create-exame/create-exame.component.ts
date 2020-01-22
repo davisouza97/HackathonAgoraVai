@@ -17,7 +17,8 @@ export class CreateExameComponent implements OnInit {
   exame: Exame = new Exame();
   submitted = false;
 
-  constructor(private exameService: ExameService,
+  constructor(
+    private exameService: ExameService,
     private router: Router, public toastService: ToastService,
     private exameList: ExameListComponent) { }
 
@@ -31,7 +32,7 @@ export class CreateExameComponent implements OnInit {
 
   public salvar() {
     console.log(this.exame);
-    let errosLog: string[] = this.validarCampos();
+    const errosLog: string[] = this.validarCampos();
     if (errosLog.length === 0) {
       this.exameService.createExame(this.exame)
         .subscribe(data => {
@@ -49,16 +50,15 @@ export class CreateExameComponent implements OnInit {
   }
 
   private validarCampos() {
-    let errosLog: string[] = [];
-    if (this.exame.nome == null || this.exame.nome == "") {
-      errosLog.push("campo nome não pode estar vazio");
+    const errosLog: string[] = [];
+    if (this.exame.nome == null || this.exame.nome === '') {
+      errosLog.push('campo nome não pode estar vazio');
     }
-    console.log(this.exame.quantidadeVagas)
-    if (this.exame.quantidadeVagas == null) {
-      errosLog.push("campo Quantidade de vagas não pode estar vazio");
+    if (this.exame.quantidadeVagas === null) {
+      errosLog.push('campo Quantidade de vagas não pode estar vazio');
     }
     if (this.exame.quantidadeVagas <= 0) {
-      errosLog.push("campo Quantidade de vagas não pode ser menor que 1");
+      errosLog.push('campo Quantidade de vagas não pode ser menor que 1');
     }
     return errosLog;
   }

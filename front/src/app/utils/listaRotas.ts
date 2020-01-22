@@ -8,4 +8,4 @@ export const listaRotas = {
     exameDetalhes : '/exames/detalhes',
     exameEditar : '/exames/update',
     inscricaoAdd : '/candidatos/add'
-}
+};
